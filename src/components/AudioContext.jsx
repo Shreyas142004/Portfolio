@@ -8,8 +8,8 @@ export const AudioProvider = ({ children }) => {
 
   useEffect(() => {
     // Create audio element
-    audioRef.current = new Audio('/public/Calculated_Grace.mp3');
-    // audioRef.current = new Audio('/my-audio.mp3');
+    audioRef.current = new Audio('./Calculated_Grace.mp3');
+    // audioRef.current = new Audio('./my-audio.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.3;
 

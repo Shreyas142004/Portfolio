@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './components/ThemeContext';
 import { AudioProvider } from './components/AudioContext';
 import CustomCursor from './components/CustomCursor';
@@ -10,12 +10,12 @@ function App() {
     <ThemeProvider>
       <AudioProvider>
         <CustomCursor />
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<Hero />} />
             <Route path="/home" element={<MainPage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </AudioProvider>
     </ThemeProvider>
   );
