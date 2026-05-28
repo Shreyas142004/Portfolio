@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-rajdhani: "Rajdhani", sans-serif;
+
+  --color-neon-blue: #00f3ff;
+  --color-neon-cyan: #00ffff;
+  --color-neon-purple: #bc13fe;
+  --color-metallic: #8a8a8a;
+  --color-bg-dark: #050505;
+}
+
+:root {
+  background-color: var(--color-bg-dark);
+  color: white;
+  font-family: var(--font-rajdhani);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #050505;
+  cursor: none; /* We'll use a custom cursor */
+}
+
+/* Custom Webkit Scrollbar for Cyberpunk theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-neon-purple);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-cyan);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4);
+}
+
+.box-glow {
+  box-shadow: 0 0 15px rgba(188, 19, 254, 0.5), inset 0 0 15px rgba(188, 19, 254, 0.2);
+}
+
+.glass-panel {
+  background: rgba(10, 10, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+}
