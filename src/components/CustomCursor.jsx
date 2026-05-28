@@ -37,7 +37,7 @@ const CustomCursor = () => {
   const outerColor = isDark ? '#bc13fe' : '#db2777';
 
   return (
-    <>
+    <div className="hidden md:block">
       <motion.div
         className={`fixed top-0 left-0 w-4 h-4 rounded-full pointer-events-none z-[9999] ${isDark ? 'mix-blend-screen' : 'mix-blend-multiply'}`}
         animate={{
@@ -65,7 +65,7 @@ const CustomCursor = () => {
           boxShadow: `inset 0 0 10px ${outerColor}, 0 0 10px ${outerColor}`,
         }}
       />
-    </>
+    </div>
   );
 };
 

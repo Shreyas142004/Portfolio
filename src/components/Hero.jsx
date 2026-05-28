@@ -60,7 +60,7 @@ const Hero = () => {
     setIsEntering(true);
     
     // Play sound effect
-    const warpSound = new Audio('/public/boss beat [sound effect].mp3');
+    const warpSound = new Audio('./boss beat [sound effect].mp3');
     warpSound.volume = 0.5;
     warpSound.play().catch(e => console.log('Sound play failed:', e));
 
