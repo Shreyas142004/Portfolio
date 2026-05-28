@@ -57,7 +57,7 @@ const About = () => {
             
             <div className="mt-8">
               <a 
-                href="/public/Shreyas.pdf" 
+                href="./Shreyas.pdf" 
                 download
                 className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-orbitron font-bold tracking-widest transition-all duration-300 hover:scale-105 ${
                   isDark 
