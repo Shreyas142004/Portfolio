@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { ExternalLink, Code, X } from 'lucide-react';
+import { Code, X } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
 const projectsData = [

@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stars, Float, MeshDistortMaterial } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
 

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useMotionTemplate, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useTheme } from './ThemeContext';
 
 const skillsDataDark = [

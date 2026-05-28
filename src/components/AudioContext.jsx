@@ -40,4 +40,5 @@ export const AudioProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAudio = () => useContext(AudioContext);
