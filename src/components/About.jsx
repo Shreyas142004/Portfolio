@@ -55,17 +55,17 @@ const About = () => {
               With a strong foundation in <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>C, Python, and Java</span>, I bridge the gap between heavy backend logic and the browser using modern tools like <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>React and Tailwind CSS</span>. I believe in clean code, continuous learning, and pushing the boundaries of modern web design.
             </p>
             
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex items-center gap-3 sm:gap-4">
               <a 
                 href="./shreyas.pdf" 
                 download
-                className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-orbitron font-bold tracking-widest transition-all duration-300 hover:scale-105 ${
+                className={`inline-flex items-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 rounded-full font-orbitron text-xs sm:text-base font-bold tracking-widest transition-all duration-300 hover:scale-105 ${
                   isDark 
                     ? 'bg-neon-cyan/20 border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black hover:shadow-[0_0_20px_rgba(0,255,255,0.6)]' 
                     : 'bg-blue-600 text-white shadow-lg hover:bg-blue-700 hover:shadow-xl'
                 }`}
               >
-                <Download className="w-5 h-5" />
+                <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>DOWNLOAD RESUME</span>
               </a>
               
@@ -74,13 +74,13 @@ const About = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Preview Resume"
-                className={`inline-flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 hover:scale-110 ${
+                className={`inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full transition-all duration-300 hover:scale-110 flex-shrink-0 ${
                   isDark 
                     ? 'bg-neon-purple/20 border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-white hover:shadow-[0_0_20px_rgba(204,0,255,0.6)]' 
                     : 'bg-white border-2 border-pink-500 text-pink-500 shadow-md hover:bg-pink-500 hover:text-white hover:shadow-lg'
                 }`}
               >
-                <Eye className="w-5 h-5" />
+                <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </div>
           </motion.div>

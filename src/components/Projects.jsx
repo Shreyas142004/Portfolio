@@ -39,6 +39,8 @@ const projectsData = [
   }
 ];
 
+import { useSpring, useTransform } from 'framer-motion';
+
 const ProjectCard = ({ project, index, isDark, onClick }) => {
   const cardRef = useRef(null);
   
@@ -46,14 +48,39 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
+  // 3D Tilt values
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
   function handleMouseMove(e) {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
     
-    mouseX.set(x);
-    mouseY.set(y);
+    // For the glow effect
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+    
+    // Only apply 3D tilt on desktop screens
+    if (window.innerWidth >= 1024) {
+      const width = rect.width;
+      const height = rect.height;
+      const mouseXNorm = (e.clientX - rect.left) / width - 0.5;
+      const mouseYNorm = (e.clientY - rect.top) / height - 0.5;
+      x.set(mouseXNorm);
+      y.set(mouseYNorm);
+    }
+  }
+
+  function handleMouseLeave() {
+    // Reset tilt on leave
+    x.set(0);
+    y.set(0);
   }
 
   return (
@@ -63,14 +90,17 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="w-full h-full cursor-pointer group"
+      className="w-full h-full cursor-pointer group perspective-1000"
       onClick={() => onClick(project)}
+      style={{ perspective: 1000 }}
     >
       <motion.div
         onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         whileHover={{ scale: 1.03 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className={`rounded-xl overflow-hidden transition-all duration-300 relative border w-full h-full flex flex-col ${
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className={`rounded-xl overflow-hidden transition-colors duration-300 relative border w-full h-full flex flex-col ${
           isDark 
             ? 'glass-panel border-white/10 group-hover:border-neon-cyan/50' 
             : 'bg-white shadow-lg border-gray-200 group-hover:border-blue-500'
@@ -91,7 +121,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         />
 
         {/* Image Container */}
-        <div className="h-48 overflow-hidden relative" style={{ transform: "translateZ(20px)" }}>
+        <div className="h-48 overflow-hidden relative" style={{ transform: "translateZ(30px)" }}>
           <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay ${isDark ? 'bg-neon-cyan/20' : 'bg-blue-500/20'}`} />
           <img 
             src={project.image} 
@@ -125,7 +155,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         </div>
         
         {/* Animated Border Bottom */}
-        <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 z-20 ${isDark ? 'bg-neon-cyan shadow-[0_0_10px_#00ffff]' : 'bg-blue-600'}`} />
+        <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 z-20 ${isDark ? 'bg-neon-cyan shadow-[0_0_10px_#00ffff]' : 'bg-blue-600'}`} style={{ transform: "translateZ(50px)" }} />
       </motion.div>
     </motion.div>
   );
@@ -183,7 +213,7 @@ const Projects = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
               onClick={(e) => e.stopPropagation()}
-              className={`max-w-xl w-full rounded-2xl overflow-hidden border relative ${
+              className={`max-w-xl w-full max-h-[90vh] overflow-y-auto overflow-x-hidden rounded-2xl border relative ${
                 isDark ? 'glass-panel border-neon-cyan/40 box-glow' : 'bg-white border-gray-200 shadow-2xl'
               }`}
             >

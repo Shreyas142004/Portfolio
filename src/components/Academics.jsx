@@ -66,7 +66,7 @@ const Academics = () => {
 
         <div className="relative" ref={timelineRef}>
           {/* Main Timeline Line */}
-          <div className={`absolute left-8 md:left-1/2 top-0 bottom-0 w-1 transform md:-translate-x-1/2 ${isDark ? 'bg-gray-900' : 'bg-gray-200'}`}>
+          <div className={`absolute left-4 md:left-1/2 top-0 bottom-0 w-1 transform md:-translate-x-1/2 ${isDark ? 'bg-gray-900' : 'bg-gray-200'}`}>
             <motion.div 
               style={{ height: lineHeight }}
               className={`w-full ${isDark ? 'bg-neon-cyan shadow-[0_0_15px_#00ffff]' : 'bg-blue-600'}`}
@@ -78,7 +78,7 @@ const Academics = () => {
               <div key={item.id} className={`relative flex flex-col md:flex-row items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
                 
                 {/* Node Icon */}
-                <div className={`absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-12 h-12 rounded-full border-2 z-10 ${
+                <div className={`absolute left-4 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full border-2 z-10 ${
                   isDark ? 'bg-black border-neon-cyan box-glow text-neon-cyan' : 'bg-white border-blue-500 text-blue-600'
                 }`}>
                   {item.icon}
@@ -90,7 +90,7 @@ const Academics = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
-                  className={`w-full md:w-1/2 pl-24 md:pl-0 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12 text-left md:text-right'}`}
+                  className={`w-full md:w-1/2 pl-12 md:pl-0 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12 text-left md:text-right'}`}
                 >
                   <div className={`p-6 rounded-xl border transition-colors ${
                     isDark

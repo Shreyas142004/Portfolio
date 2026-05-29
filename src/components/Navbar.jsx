@@ -72,7 +72,7 @@ const Navbar = () => {
           {/* Logo */}
           <div onClick={(e) => handleSmoothScroll(e, '#about')} className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
             <Terminal className={`${isDark ? 'text-neon-cyan' : 'text-blue-600'} w-8 h-8`} />
-            <span className={`font-orbitron font-bold text-xl tracking-wider ${isDark ? 'text-white text-glow' : 'text-black'}`}>
+            <span className={`font-orbitron font-bold text-lg sm:text-xl tracking-wider ${isDark ? 'text-white text-glow' : 'text-black'}`}>
               SHREYAS<span className={isDark ? 'text-neon-cyan' : 'text-blue-600'}>.</span>RA
             </span>
           </div>
@@ -145,7 +145,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center gap-2 sm:gap-4">
             <div className="flex items-center gap-1">
               <button
                 onClick={toggleAudio}
@@ -164,7 +164,7 @@ const Navbar = () => {
                   max="100" 
                   value={volume} 
                   onChange={(e) => setVolume(Number(e.target.value))}
-                  className={`w-16 h-1 rounded-lg appearance-none cursor-pointer ${
+                  className={`w-12 sm:w-16 h-1 rounded-lg appearance-none cursor-pointer ${
                     isDark ? 'bg-gray-700 accent-neon-purple' : 'bg-gray-300 accent-pink-600'
                   }`}
                 />
