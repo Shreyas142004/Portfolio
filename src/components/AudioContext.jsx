@@ -4,6 +4,7 @@ const AudioContext = createContext();
 
 export const AudioProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(30); // 0 to 100
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -18,6 +19,13 @@ export const AudioProvider = ({ children }) => {
       audioRef.current = null;
     };
   }, []);
+
+  // Sync volume changes to the audio element
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+    }
+  }, [volume]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -34,7 +42,7 @@ export const AudioProvider = ({ children }) => {
   };
 
   return (
-    <AudioContext.Provider value={{ isPlaying, toggleAudio }}>
+    <AudioContext.Provider value={{ isPlaying, toggleAudio, volume, setVolume }}>
       {children}
     </AudioContext.Provider>
   );

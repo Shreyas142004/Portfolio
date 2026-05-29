@@ -9,6 +9,7 @@ const navLinks = [
   { name: 'ACADEMICS', href: '#academics' },
   { name: 'SKILLS', href: '#skills' },
   { name: 'PROJECTS', href: '#projects' },
+  { name: 'CERTIFICATES', href: '#certificates' },
   { name: 'CONTACT', href: '#contact' },
 ];
 
@@ -17,7 +18,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
   const { theme,  toggleTheme } = useTheme();
-  const { isPlaying, toggleAudio } = useAudio();
+  const { isPlaying, toggleAudio, volume, setVolume } = useAudio();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,17 +101,34 @@ const Navbar = () => {
             })}
             
             <div className="flex items-center gap-4">
-              {/* Audio Toggle Button */}
-              <button
-                onClick={toggleAudio}
-                className={`p-2 rounded-full border transition-colors ${
-                  isDark 
-                    ? 'border-white/20 text-white hover:text-neon-purple hover:border-neon-purple hover:bg-neon-purple/10' 
-                    : 'border-gray-300 text-gray-800 hover:text-pink-600 hover:border-pink-600 hover:bg-pink-50'
-                }`}
-              >
-                {isPlaying ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
-              </button>
+              {/* Audio Controls */}
+              <div className="flex items-center gap-2 group">
+                <button
+                  onClick={toggleAudio}
+                  className={`p-2 rounded-full border transition-colors ${
+                    isDark 
+                      ? 'border-white/20 text-white hover:text-neon-purple hover:border-neon-purple hover:bg-neon-purple/10' 
+                      : 'border-gray-300 text-gray-800 hover:text-pink-600 hover:border-pink-600 hover:bg-pink-50'
+                  }`}
+                >
+                  {isPlaying ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+                </button>
+                
+                {isPlaying && (
+                  <motion.input 
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{ width: 80, opacity: 1 }}
+                    type="range" 
+                    min="0" 
+                    max="100" 
+                    value={volume} 
+                    onChange={(e) => setVolume(Number(e.target.value))}
+                    className={`h-1 rounded-lg appearance-none cursor-pointer ${
+                      isDark ? 'bg-gray-700 accent-neon-purple' : 'bg-gray-300 accent-pink-600'
+                    }`}
+                  />
+                )}
+              </div>
 
               {/* Theme Toggle Button */}
               <button
@@ -128,16 +146,30 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
-            <button
-              onClick={toggleAudio}
-              className={`p-2 rounded-full border transition-colors ${
-                isDark 
-                  ? 'border-white/20 text-white' 
-                  : 'border-gray-300 text-gray-800'
-              }`}
-            >
-              {isPlaying ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={toggleAudio}
+                className={`p-2 rounded-full border transition-colors ${
+                  isDark 
+                    ? 'border-white/20 text-white' 
+                    : 'border-gray-300 text-gray-800'
+                }`}
+              >
+                {isPlaying ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+              </button>
+              {isPlaying && (
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="100" 
+                  value={volume} 
+                  onChange={(e) => setVolume(Number(e.target.value))}
+                  className={`w-16 h-1 rounded-lg appearance-none cursor-pointer ${
+                    isDark ? 'bg-gray-700 accent-neon-purple' : 'bg-gray-300 accent-pink-600'
+                  }`}
+                />
+              )}
+            </div>
 
             <button
               onClick={toggleTheme}

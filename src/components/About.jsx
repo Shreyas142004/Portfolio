@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Download } from 'lucide-react';
+import { Download, Eye } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
 const About = () => {
@@ -55,9 +55,9 @@ const About = () => {
               With a strong foundation in <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>C, Python, and Java</span>, I bridge the gap between heavy backend logic and the browser using modern tools like <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>React and Tailwind CSS</span>. I believe in clean code, continuous learning, and pushing the boundaries of modern web design.
             </p>
             
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap gap-4">
               <a 
-                href="./Shreyas.pdf" 
+                href="./shreyas.pdf" 
                 download
                 className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-orbitron font-bold tracking-widest transition-all duration-300 hover:scale-105 ${
                   isDark 
@@ -67,6 +67,20 @@ const About = () => {
               >
                 <Download className="w-5 h-5" />
                 <span>DOWNLOAD RESUME</span>
+              </a>
+              
+              <a 
+                href="./shreyas.pdf" 
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Preview Resume"
+                className={`inline-flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 hover:scale-110 ${
+                  isDark 
+                    ? 'bg-neon-purple/20 border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-white hover:shadow-[0_0_20px_rgba(204,0,255,0.6)]' 
+                    : 'bg-white border-2 border-pink-500 text-pink-500 shadow-md hover:bg-pink-500 hover:text-white hover:shadow-lg'
+                }`}
+              >
+                <Eye className="w-5 h-5" />
               </a>
             </div>
           </motion.div>

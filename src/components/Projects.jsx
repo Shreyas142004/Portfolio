@@ -17,7 +17,7 @@ const projectsData = [
   },
   {
     id: 2,
-    title: 'Smart Utility Frontend',
+    title: 'Smart Utility Portal',
     category: 'Web Development',
     image: './web project.png',
     shortDescription: 'Modern responsive frontend for a smart utility application.',

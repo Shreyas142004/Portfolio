@@ -3,6 +3,7 @@ import About from './About';
 import Academics from './Academics';
 import Skills from './Skills';
 import Projects from './Projects';
+import Certificates from './Certificates';
 import Contact from './Contact';
 import Footer from './Footer';
 import Background from './Background';
@@ -25,6 +26,7 @@ const MainPage = () => {
         <div id="academics"><Academics /></div>
         <div id="skills"><Skills /></div>
         <div id="projects"><Projects /></div>
+        <div id="certificates"><Certificates /></div>
         <div id="contact"><Contact /></div>
       </main>
 
