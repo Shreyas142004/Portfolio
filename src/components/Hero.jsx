@@ -141,7 +141,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.button
-            whileHover={!isEntering ? { scale: 1.05, boxShadow: isDark ? "0 0 20px #00ffff" : "0 0 20px rgba(37,99,235,0.5)" } : {}}
+            whileHover={(!isEntering && window.matchMedia("(hover: hover)").matches) ? { scale: 1.05, boxShadow: isDark ? "0 0 20px #00ffff" : "0 0 20px rgba(37,99,235,0.5)" } : {}}
             whileTap={!isEntering ? { scale: 0.95 } : {}}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

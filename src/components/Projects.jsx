@@ -31,11 +31,11 @@ const projectsData = [
     title: 'AI Speech-to-Text',
     category: 'Machine Learning',
     image: './speech.png',
-    shortDescription: 'AI-powered speech transcription tool using OpenAI Whisper.',
-    fullDescription: 'An advanced AI/ML project that converts audio speech to highly accurate text. The backend is powered by Python and OpenAI\'s Whisper package for the heavy transcription lifting, while the frontend is built using React and Tailwind CSS for a seamless user experience. It bridges complex machine learning models with a highly accessible web interface.',
-    tech: ['React', 'Tailwind', 'Python', 'OpenAI Whisper'],
-    link: 'https://github.com/Shreyas142004/Speech-to-Text.git',
-    github: 'https://github.com/Shreyas142004/Speech-to-Text.git'
+    shortDescription: '⚠️ MODULE LOCKED: Neural pathways currently under construction...',
+    fullDescription: '>>> SYSTEM OVERRIDE: ACCESS RESTRICTED <<<\n\nThe neural network for this AI-powered speech transcription tool is currently being forged in the core mainframe. Our synthetic engineers are calibrating the OpenAI Whisper algorithms for maximum efficiency.\n\nETA: UNKNOWN.\n\nSTAND BY FOR NEXT TRANSMISSION...',
+    tech: ['CLASSIFIED', 'IN DEVELOPMENT'],
+    link: '#',
+    github: '#'
   }
 ];
 
@@ -97,7 +97,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
       <motion.div
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        whileHover={{ scale: 1.03 }}
+        whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.03 } : {}}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className={`rounded-xl overflow-hidden transition-colors duration-300 relative border w-full h-full flex flex-col ${
@@ -257,14 +257,23 @@ const Projects = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-4">
-
-                  <a href={selectedProject.github} className={`flex items-center gap-2 px-6 py-3 font-orbitron font-bold rounded border transition-all ${
-                    isDark
-                      ? 'bg-transparent border-white/30 text-white hover:border-white'
-                      : 'bg-transparent border-gray-300 text-gray-800 hover:border-gray-600'
-                  }`}>
-                    <Code className="w-5 h-5" /> GitHub Repo
-                  </a>
+                  {selectedProject.github !== '#' ? (
+                    <a href={selectedProject.github} target="_blank" rel="noreferrer" className={`flex items-center gap-2 px-6 py-3 font-orbitron font-bold rounded border transition-all ${
+                      isDark
+                        ? 'bg-transparent border-white/30 text-white hover:border-white'
+                        : 'bg-transparent border-gray-300 text-gray-800 hover:border-gray-600'
+                    }`}>
+                      <Code className="w-5 h-5" /> GitHub Repo
+                    </a>
+                  ) : (
+                    <div className={`flex items-center gap-2 px-6 py-3 font-orbitron font-bold rounded border cursor-not-allowed opacity-50 ${
+                      isDark
+                        ? 'bg-red-900/20 border-red-500/50 text-red-500'
+                        : 'bg-red-50 border-red-300 text-red-600'
+                    }`}>
+                      <X className="w-5 h-5" /> REPO LOCKED
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>

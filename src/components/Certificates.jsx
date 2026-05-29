@@ -1,6 +1,6 @@
-import { useRef } from 'react';
-import { motion, useSpring, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { Award, Eye, Download } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { motion, useSpring, useTransform, useMotionValue, useMotionTemplate, AnimatePresence } from 'framer-motion';
+import { Award, Eye, Download, X } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
 const certificatesData = [
@@ -14,7 +14,7 @@ const certificatesData = [
   }
 ];
 
-const CertificateCard = ({ cert, index, isDark }) => {
+const CertificateCard = ({ cert, index, isDark, onPreview }) => {
   const cardRef = useRef(null);
   
   // Hover glow effect values
@@ -68,7 +68,7 @@ const CertificateCard = ({ cert, index, isDark }) => {
       <motion.div
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        whileHover={{ scale: 1.03 }}
+        whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.03 } : {}}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className={`group p-8 rounded-2xl flex flex-col h-full border backdrop-blur-sm transition-colors duration-300 relative overflow-hidden ${
@@ -113,10 +113,11 @@ const CertificateCard = ({ cert, index, isDark }) => {
           </p>
 
           <div className="flex items-center gap-4 mt-auto">
-            <a
-              href={cert.file}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onPreview(cert);
+              }}
               className={`flex-1 inline-flex justify-center items-center gap-2 py-3 px-4 rounded-lg font-orbitron text-sm font-bold tracking-wider transition-all duration-300 ${
                 isDark
                   ? 'bg-transparent border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black hover:shadow-[0_0_15px_rgba(0,255,255,0.4)]'
@@ -124,7 +125,7 @@ const CertificateCard = ({ cert, index, isDark }) => {
               }`}
             >
               <Eye className="w-4 h-4" /> PREVIEW
-            </a>
+            </button>
             
             <a
               href={cert.file}
@@ -145,6 +146,7 @@ const CertificateCard = ({ cert, index, isDark }) => {
 };
 
 const Certificates = () => {
+  const [previewCert, setPreviewCert] = useState(null);
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -172,10 +174,48 @@ const Certificates = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {certificatesData.map((cert, index) => (
-            <CertificateCard key={cert.id} cert={cert} index={index} isDark={isDark} />
+            <CertificateCard key={cert.id} cert={cert} index={index} isDark={isDark} onPreview={setPreviewCert} />
           ))}
         </div>
       </div>
+
+      {/* Preview Modal */}
+      <AnimatePresence>
+        {previewCert && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={`fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-sm ${isDark ? 'bg-black/80' : 'bg-gray-900/60'}`}
+            onClick={() => setPreviewCert(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 50 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden relative border ${isDark ? 'bg-black border-neon-cyan/50 box-glow' : 'bg-white border-gray-200 shadow-2xl'}`}
+            >
+              <button 
+                onClick={() => setPreviewCert(null)}
+                className={`absolute top-4 right-4 z-50 p-2 rounded-full backdrop-blur-sm transition-colors ${
+                  isDark ? 'bg-black/50 text-white hover:text-neon-cyan' : 'bg-white/80 text-gray-800 hover:text-blue-600'
+                }`}
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div className="w-full h-full p-2 pt-14">
+                <iframe 
+                  src={`${previewCert.file}#toolbar=0`} 
+                  className="w-full h-full rounded-xl border-none"
+                  title="Certificate Preview"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

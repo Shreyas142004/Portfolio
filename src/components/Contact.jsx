@@ -168,7 +168,7 @@ const Contact = () => {
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
+                whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.02 } : {}}
                 whileTap={{ scale: 0.98 }}
                 disabled={isSubmitting}
                 className={`w-full relative group overflow-hidden rounded bg-transparent border-2 p-4 ${

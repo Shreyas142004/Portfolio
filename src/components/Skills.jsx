@@ -6,7 +6,6 @@ import {
   Code2, 
   FileCode2, 
   Database, 
-  Binary, 
   Braces, 
   TerminalSquare, 
   GitBranch, 
