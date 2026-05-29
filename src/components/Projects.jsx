@@ -99,7 +99,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         onMouseLeave={handleMouseLeave}
         whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.03 } : {}}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={window.innerWidth >= 1024 ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}}
         className={`rounded-xl overflow-hidden transition-colors duration-300 relative border w-full h-full flex flex-col ${
           isDark 
             ? 'glass-panel border-white/10 group-hover:border-neon-cyan/50' 
@@ -121,7 +121,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         />
 
         {/* Image Container */}
-        <div className="h-48 overflow-hidden relative" style={{ transform: "translateZ(30px)" }}>
+        <div className="h-48 overflow-hidden relative lg:[transform:translateZ(30px)]">
           <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay ${isDark ? 'bg-neon-cyan/20' : 'bg-blue-500/20'}`} />
           <img 
             src={project.image} 
@@ -131,7 +131,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         </div>
         
         {/* Content */}
-        <div className={`p-6 relative z-20 backdrop-blur-sm flex-1 flex flex-col ${isDark ? 'bg-black/80' : 'bg-white/90'}`} style={{ transform: "translateZ(40px)" }}>
+        <div className={`p-6 relative z-20 backdrop-blur-sm flex-1 flex flex-col lg:[transform:translateZ(40px)] ${isDark ? 'bg-black/80' : 'bg-white/90'}`}>
           <p className={`font-rajdhani text-sm font-bold tracking-widest mb-1 ${isDark ? 'text-neon-purple' : 'text-pink-600'}`}>{project.category}</p>
           <h3 className={`text-xl font-orbitron font-bold mb-3 transition-all ${isDark ? 'text-white group-hover:text-glow' : 'text-gray-900 group-hover:text-blue-600'}`}>{project.title}</h3>
           
@@ -147,7 +147,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
               target="_blank" 
               rel="noreferrer"
               onClick={(e) => e.stopPropagation()} 
-              className={`p-2 rounded-full border transition-colors z-50 ${isDark ? 'border-white/20 text-white hover:text-neon-cyan hover:border-neon-cyan' : 'border-gray-300 text-gray-800 hover:text-blue-600 hover:border-blue-600'}`}
+              className={`relative z-50 p-2 rounded-full border transition-colors ${isDark ? 'border-white/20 text-white hover:text-neon-cyan hover:border-neon-cyan' : 'border-gray-300 text-gray-800 hover:text-blue-600 hover:border-blue-600'}`}
             >
               <Code className="w-4 h-4" />
             </a>
@@ -155,7 +155,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         </div>
         
         {/* Animated Border Bottom */}
-        <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 z-20 ${isDark ? 'bg-neon-cyan shadow-[0_0_10px_#00ffff]' : 'bg-blue-600'}`} style={{ transform: "translateZ(50px)" }} />
+        <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 z-20 lg:[transform:translateZ(50px)] ${isDark ? 'bg-neon-cyan shadow-[0_0_10px_#00ffff]' : 'bg-blue-600'}`} />
       </motion.div>
     </motion.div>
   );

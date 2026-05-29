@@ -70,7 +70,7 @@ const CertificateCard = ({ cert, index, isDark, onPreview }) => {
         onMouseLeave={handleMouseLeave}
         whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.03 } : {}}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={window.innerWidth >= 1024 ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}}
         className={`group p-8 rounded-2xl flex flex-col h-full border backdrop-blur-sm transition-colors duration-300 relative overflow-hidden ${
           isDark 
             ? 'bg-black/40 border-neon-cyan/20 hover:border-neon-cyan hover:shadow-[0_0_30px_rgba(0,255,255,0.15)]' 
@@ -91,7 +91,7 @@ const CertificateCard = ({ cert, index, isDark, onPreview }) => {
           }}
         />
 
-        <div className="relative z-10 flex flex-col h-full" style={{ transform: "translateZ(30px)" }}>
+        <div className="relative z-10 flex flex-col h-full lg:[transform:translateZ(30px)]">
           <div className="mb-6 flex justify-between items-start">
             <div className={`p-4 rounded-xl ${isDark ? 'bg-neon-cyan/10 text-neon-cyan' : 'bg-blue-100 text-blue-600'}`}>
               <Award className="w-8 h-8" />
@@ -116,9 +116,10 @@ const CertificateCard = ({ cert, index, isDark, onPreview }) => {
             <button
               onClick={(e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 onPreview(cert);
               }}
-              className={`flex-1 inline-flex justify-center items-center gap-2 py-3 px-4 rounded-lg font-orbitron text-sm font-bold tracking-wider transition-all duration-300 ${
+              className={`flex-1 relative z-50 inline-flex justify-center items-center gap-2 py-3 px-4 rounded-lg font-orbitron text-sm font-bold tracking-wider transition-all duration-300 ${
                 isDark
                   ? 'bg-transparent border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black hover:shadow-[0_0_15px_rgba(0,255,255,0.4)]'
                   : 'bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-md'
@@ -130,7 +131,8 @@ const CertificateCard = ({ cert, index, isDark, onPreview }) => {
             <a
               href={cert.file}
               download
-              className={`flex-1 inline-flex justify-center items-center gap-2 py-3 px-4 rounded-lg font-orbitron text-sm font-bold tracking-wider transition-all duration-300 ${
+              onClick={(e) => e.stopPropagation()}
+              className={`flex-1 relative z-50 inline-flex justify-center items-center gap-2 py-3 px-4 rounded-lg font-orbitron text-sm font-bold tracking-wider transition-all duration-300 ${
                 isDark
                   ? 'bg-neon-purple/20 border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-white hover:shadow-[0_0_15px_rgba(204,0,255,0.4)]'
                   : 'bg-pink-50 border-2 border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white hover:shadow-md'

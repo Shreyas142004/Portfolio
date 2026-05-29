@@ -43,7 +43,7 @@ const Footer = () => {
 
           <div className="flex space-x-6">
             <a 
-              href="mailto:your_email@gmail.com"
+              href="mailto:shreyasra7@gmail.com"
               className={`w-10 h-10 rounded flex items-center justify-center transition-all duration-300 ${
                 isDark 
                   ? 'bg-white/5 border border-white/10 text-gray-400 hover:text-neon-cyan hover:border-neon-cyan hover:bg-neon-cyan/10 hover:shadow-[0_0_15px_rgba(0,255,255,0.5)]'
