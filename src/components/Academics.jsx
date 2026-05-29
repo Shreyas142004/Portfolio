@@ -7,7 +7,7 @@ const academicsData = [
   {
     id: 1,
     degree: 'Master of Computer Applications (MCA)',
-    status: 'Ongoing',
+    status: 'Mission Not Completed',
     score: '8.61 CGPA',
     description: 'Advanced studies in computer applications, software engineering, and modern web technologies.',
     icon: <GraduationCap className="w-5 h-5" />
@@ -15,7 +15,7 @@ const academicsData = [
   {
     id: 2,
     degree: 'Bachelor of Computer Applications (BCA)',
-    status: 'Completed 2025',
+    status: 'Mission Completed 2025',
     score: '7.6 CGPA',
     description: 'Foundational degree covering programming, databases, and core computer science concepts.',
     icon: <BookOpen className="w-5 h-5" />
@@ -23,7 +23,7 @@ const academicsData = [
   {
     id: 3,
     degree: 'Pre-University Course (PUC)',
-    status: 'Completed 2022',
+    status: 'Mission Completed 2022',
     score: '79.83%',
     description: 'Pre-university education with a focus on core sciences and mathematics.',
     icon: <Award className="w-5 h-5" />
@@ -31,7 +31,7 @@ const academicsData = [
   {
     id: 4,
     degree: 'Secondary School Leaving Certificate (SSLC)',
-    status: 'Completed 2020',
+    status: 'Mission Completed 2020',
     score: '76.8%',
     description: 'High school foundational education.',
     icon: <Award className="w-5 h-5" />
