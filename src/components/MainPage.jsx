@@ -13,7 +13,7 @@ const MainPage = () => {
   const { theme } = useTheme();
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 relative z-0 ${
+    <div className={`min-h-screen w-full max-w-[100vw] overflow-x-hidden transition-colors duration-500 relative z-0 ${
       theme === 'dark' 
         ? 'bg-[#050505] text-white selection:bg-neon-purple selection:text-white' 
         : 'bg-gray-50 text-gray-900 selection:bg-neon-cyan selection:text-black'

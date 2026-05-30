@@ -167,7 +167,7 @@ const Projects = () => {
   const isDark = theme === 'dark';
 
   return (
-    <section className="py-24 relative overflow-hidden min-h-screen bg-transparent">
+    <section id="projects" className="py-24 relative min-h-screen overflow-hidden bg-transparent">
       {/* Background Decor */}
       <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-[600px] blur-[150px] pointer-events-none ${isDark ? 'bg-neon-purple/5' : 'bg-blue-300/10'}`} />
 

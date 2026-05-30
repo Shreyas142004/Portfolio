@@ -50,7 +50,7 @@ const Academics = () => {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section className="py-24 relative min-h-screen bg-transparent">
+    <section className="py-24 relative min-h-screen overflow-hidden bg-transparent">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
