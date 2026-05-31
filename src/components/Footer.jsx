@@ -84,7 +84,7 @@ const Footer = () => {
         
         <div className={`mt-8 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
           <p className={`font-rajdhani text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-            &copy; 2077 SHREYAS RA. ALL RIGHTS RESERVED.
+            &copy; {new Date().getFullYear()} SHREYAS RA. ALL RIGHTS RESERVED.
           </p>
           <div className="flex items-center gap-2">
             <span className={`w-2 h-2 rounded-full animate-pulse ${isDark ? 'bg-neon-cyan shadow-[0_0_10px_#00ffff]' : 'bg-green-500 shadow-[0_0_10px_#22c55e]'}`}></span>

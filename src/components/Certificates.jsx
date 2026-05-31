@@ -10,7 +10,15 @@ const certificatesData = [
     issuer: 'Google Cloud',
     date: '2026',
     file: './Generative AI Studio.pdf',
-    description: '📢 I am super excited to share that I’ve just completed Introduction to Generative AI Studio. 🎓 I had a great experience learning industry aligned skills of AI.',
+    description: 'Mission accomplished: Explored the cutting-edge of artificial intelligence, mastering industry-aligned Generative AI models. Unlocked new capabilities in prompt engineering, model tuning, and integrating AI architectures.',
+  },
+  {
+    id: 2,
+    title: 'Advanced Git Concepts',
+    issuer: 'Online Course Certification',
+    date: '2026',
+    file: './Advanced Git Concepts.pdf',
+    description: 'Mission accomplished: Mastered advanced version control workflows, complex branching strategies, and decentralized repository architecture to dominate codebase management and team collaboration.',
   }
 ];
 
