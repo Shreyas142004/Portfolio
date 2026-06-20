@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'fram
 import { Code, X } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
+
 const projectsData = [
   {
     id: 1,
@@ -31,12 +32,24 @@ const projectsData = [
     title: 'AI Speech-to-Text',
     category: 'Machine Learning',
     image: './speech.png',
-    shortDescription: '⚠️ MODULE LOCKED: Neural pathways currently under construction...',
-    fullDescription: '>>> SYSTEM OVERRIDE: ACCESS RESTRICTED <<<\n\nThe neural network for this AI-powered speech transcription tool is currently being forged in the core mainframe. Our synthetic engineers are calibrating the OpenAI Whisper algorithms for maximum efficiency.\n\nETA: UNKNOWN.\n\nSTAND BY FOR NEXT TRANSMISSION...',
-    tech: ['CLASSIFIED', 'IN DEVELOPMENT'],
-    link: '#',
-    github: '#'
+    shortDescription: 'MODULE UNLOCKED: High-fidelity speech transcription engine online.',
+    fullDescription: '>>> SYSTEM OVERRIDE: ACCESS GRANTED <<<\n\nThe neural network for this AI-powered speech transcription tool has been successfully forged in the core mainframe. Utilizing advanced speech recognition algorithms, the system now features highly accurate voice-to-text conversion capabilities. All neural subroutines running at peak efficiency.',
+    tech: ['Python', 'Machine Learning', 'AI Models'],
+    link: 'https://github.com/Shreyas142004/Speech-to-Text.git',
+    github: 'https://github.com/Shreyas142004/Speech-to-Text.git'
   }
+,
+    {
+      id: 4,
+      title: 'Smart Parking Portal',
+      category: 'IoT / Web Development',
+      image: './Smart-Parking-Portal.png',
+      shortDescription: 'An intelligent parking management system with real-time space detection.',
+      fullDescription: 'A full-stack application that uses sensors and a web dashboard to monitor parking space availability, provide reservation capabilities, and optimize traffic flow. Built with React, Node.js, and Firebase for real-time updates.',
+      tech: ['React', 'Node.js', 'Firebase', 'Sensor Integration', 'Tailwind CSS'],
+      link: 'https://github.com/Shreyas142004/Smart-Parking-Portal.git',
+      github: 'https://github.com/Shreyas142004/Smart-Parking-Portal.git'
+    }
 ];
 
 import { useSpring, useTransform } from 'framer-motion';
@@ -90,7 +103,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="w-full h-full cursor-pointer group perspective-1000"
+      className="group w-full h-full perspective-1000 cursor-pointer"
       onClick={() => onClick(project)}
       style={{ perspective: 1000 }}
     >
@@ -108,7 +121,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
       >
         {/* Glow effect on hover */}
         <motion.div
-          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-30"
+          className="z-30 absolute -inset-px opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none"
           style={{
             background: useMotionTemplate`
               radial-gradient(
@@ -121,7 +134,7 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         />
 
         {/* Image Container */}
-        <div className="h-48 overflow-hidden relative lg:[transform:translateZ(30px)]">
+        <div className="relative h-48 overflow-hidden lg:[transform:translateZ(30px)]">
           <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 mix-blend-overlay ${isDark ? 'bg-neon-cyan/20' : 'bg-blue-500/20'}`} />
           <img 
             src={project.image} 
@@ -167,17 +180,17 @@ const Projects = () => {
   const isDark = theme === 'dark';
 
   return (
-    <section id="projects" className="py-24 relative min-h-screen overflow-hidden bg-transparent">
+    <section id="projects" className="relative bg-transparent py-24 min-h-screen overflow-hidden">
       {/* Background Decor */}
       <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-[600px] blur-[150px] pointer-events-none ${isDark ? 'bg-neon-purple/5' : 'bg-blue-300/10'}`} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-10">
+      <div className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 pt-10 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
           <h2 className={`text-4xl md:text-5xl font-orbitron font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
             <span className={isDark ? 'text-neon-cyan' : 'text-blue-600'}>&gt;</span> ARCHIVE_LOGS
@@ -185,7 +198,7 @@ const Projects = () => {
           <div className={`w-24 h-1 mx-auto ${isDark ? 'bg-neon-purple box-glow' : 'bg-pink-500'}`} />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
+        <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 perspective-1000">
           {projectsData.map((project, index) => (
             <ProjectCard 
               key={project.id} 
@@ -226,14 +239,14 @@ const Projects = () => {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="h-48 md:h-56 relative">
+              <div className="relative h-48 md:h-56">
                 <img 
                   src={selectedProject.image} 
                   alt={selectedProject.title} 
                   className="w-full h-full object-cover"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'from-black via-black/50' : 'from-white via-white/50'} to-transparent`} />
-                <div className="absolute bottom-5 left-5 right-5">
+                <div className="right-5 bottom-5 left-5 absolute">
                   <p className={`font-rajdhani font-bold tracking-widest mb-1 ${isDark ? 'text-neon-cyan' : 'text-blue-600'}`}>{selectedProject.category}</p>
                   <h3 className={`text-2xl md:text-3xl font-orbitron font-bold ${isDark ? 'text-white text-glow' : 'text-gray-900'}`}>{selectedProject.title}</h3>
                 </div>
@@ -271,7 +284,7 @@ const Projects = () => {
                         ? 'bg-red-900/20 border-red-500/50 text-red-500'
                         : 'bg-red-50 border-red-300 text-red-600'
                     }`}>
-                      <X className="w-5 h-5" /> REPO LOCKED
+                      <X className={clsx('w-5', 'h-5')} /> REPO LOCKED
                     </div>
                   )}
                 </div>
