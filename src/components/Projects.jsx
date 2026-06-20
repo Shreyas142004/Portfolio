@@ -284,7 +284,7 @@ const Projects = () => {
                         ? 'bg-red-900/20 border-red-500/50 text-red-500'
                         : 'bg-red-50 border-red-300 text-red-600'
                     }`}>
-                      <X className={clsx('w-5', 'h-5')} /> REPO LOCKED
+                      <X className="w-5 h-5" /> REPO LOCKED
                     </div>
                   )}
                 </div>

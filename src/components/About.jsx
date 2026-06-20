@@ -7,14 +7,14 @@ const About = () => {
   const isDark = theme === 'dark';
 
   return (
-    <section className="py-24 relative overflow-hidden min-h-screen bg-transparent flex flex-col justify-center">
+    <section className="relative flex flex-col justify-center bg-transparent py-24 min-h-screen overflow-hidden">
       {/* Background Decor */}
       <div className={`absolute top-0 right-0 w-[500px] h-[500px] blur-[120px] rounded-full pointer-events-none ${isDark ? 'bg-neon-purple/10' : 'bg-pink-300/30'}`} />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+      <div className="z-10 relative flex md:flex-row flex-col items-center gap-16 lg:gap-24 mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-6xl">
         
         {/* Left Side: Name and Identity */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left md:-mt-24 relative">
+        <div className="relative flex flex-col items-center md:items-start md:-mt-24 w-full md:w-1/2 md:text-left text-center">
           {/* Blue glow exactly behind name card */}
           <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] blur-[100px] rounded-full pointer-events-none -z-10 ${isDark ? 'bg-neon-cyan/20' : 'bg-blue-300/40'}`} />
           
@@ -28,7 +28,8 @@ const About = () => {
               SHREYAS R A
             </h3>
             <p className={`font-rajdhani text-base md:text-lg lg:text-xl tracking-widest uppercase whitespace-nowrap mb-6 ${isDark ? 'text-neon-purple' : 'text-pink-600 font-bold'}`}>
-              Level 70 Developer
+                Software Developer - <br/>
+                Develops Software applications and systems
             </p>
             
           </motion.div>
@@ -55,7 +56,7 @@ const About = () => {
               With a strong foundation in <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>C, Python, and Java</span>, I bridge the gap between heavy backend logic and the browser using modern tools like <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>React and Tailwind CSS</span>. I believe in clean code, continuous learning, and pushing the boundaries of modern web design.
             </p>
             
-            <div className="mt-8 flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-3 sm:gap-4 mt-8">
               <a 
                 href="./shreyas.pdf" 
                 download
@@ -65,7 +66,7 @@ const About = () => {
                     : 'bg-blue-600 text-white shadow-lg hover:bg-blue-700 hover:shadow-xl'
                 }`}
               >
-                <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Download className="w-4 sm:w-5 h-4 sm:h-5"/>
                 <span>DOWNLOAD RESUME</span>
               </a>
               
@@ -80,7 +81,7 @@ const About = () => {
                     : 'bg-white border-2 border-pink-500 text-pink-500 shadow-md hover:bg-pink-500 hover:text-white hover:shadow-lg'
                 }`}
               >
-                <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Eye className="w-4 sm:w-5 h-4 sm:h-5"/>
               </a>
             </div>
           </motion.div>
