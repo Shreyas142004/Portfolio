@@ -22,12 +22,12 @@ const About = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className={`inline-block px-6 py-6 border rounded-2xl backdrop-blur-sm flex flex-col items-center md:items-start ${isDark ? 'bg-black/50 border-neon-cyan/30 shadow-[0_0_30px_rgba(0,255,255,0.1)]' : 'bg-white/80 border-gray-200 shadow-xl'}`}
+            className={`inline-block px-4 sm:px-6 py-6 border rounded-2xl backdrop-blur-sm flex flex-col items-center md:items-start max-w-full ${isDark ? 'bg-black/50 border-neon-cyan/30 shadow-[0_0_30px_rgba(0,255,255,0.1)]' : 'bg-white/80 border-gray-200 shadow-xl'}`}
           >
-            <h3 className={`text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold mb-2 tracking-widest whitespace-nowrap ${isDark ? 'text-white text-glow' : 'text-gray-900'}`}>
+            <h3 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold mb-2 tracking-widest text-center md:text-left break-words ${isDark ? 'text-white text-glow' : 'text-gray-900'}`}>
               SHREYAS R A
             </h3>
-            <p className={`font-rajdhani text-base md:text-lg lg:text-xl tracking-widest uppercase whitespace-nowrap mb-6 ${isDark ? 'text-neon-purple' : 'text-pink-600 font-bold'}`}>
+            <p className={`font-rajdhani text-sm sm:text-base md:text-lg lg:text-xl tracking-widest uppercase text-center md:text-left break-words mb-6 ${isDark ? 'text-neon-purple' : 'text-pink-600 font-bold'}`}>
                 Software Developer - <br/>
                 Develops Software applications and systems
             </p>
@@ -50,10 +50,10 @@ const About = () => {
             <div className={`w-16 h-1 mb-8 ${isDark ? 'bg-neon-purple box-glow' : 'bg-pink-500'}`} />
             
             <p className={`font-rajdhani text-xl leading-relaxed mb-6 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-              I am a passionate and dedicated <span className={`font-semibold ${isDark ? 'text-neon-cyan' : 'text-blue-600'}`}>Frontend Developer</span> focused on building high-performance, responsive, and visually stunning web applications. I specialize in turning complex designs into sleek, interactive user interfaces that provide immersive user experiences.
+              I am a passionate and dedicated <span className={`font-semibold ${isDark ? 'text-neon-cyan' : 'text-blue-600'}`}>MERN Full Stack Developer</span> focused on building high-performance, responsive, and visually stunning web applications. I specialize in turning complex designs into sleek, interactive user interfaces that provide immersive user experiences while ensuring robust backend architecture.
             </p>
             <p className={`font-rajdhani text-xl leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-              With a strong foundation in <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>C, Python, and Java</span>, I bridge the gap between heavy backend logic and the browser using modern tools like <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>React and Tailwind CSS</span>. I believe in clean code, continuous learning, and pushing the boundaries of modern web design.
+              With a strong foundation in <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>C, Python, and Java</span>, I bridge the gap between heavy backend logic and the browser using modern tools like <span className={`font-semibold ${isDark ? 'text-white' : 'text-black'}`}>MongoDB, Express, React, Node.js, and Tailwind CSS</span>. I believe in clean code, continuous learning, and pushing the boundaries of modern web design.
             </p>
             
             <div className="flex items-center gap-3 sm:gap-4 mt-8">

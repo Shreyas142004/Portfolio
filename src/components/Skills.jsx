@@ -62,6 +62,12 @@ const coreSkills = [
     desc: 'Database schema construction, queries execution, table relationships mapping.' 
   },
   { 
+    name: 'MongoDB', 
+    level: 75, 
+    icon: Database,
+    desc: 'NoSQL document storage, flexible schemas, and scalable JSON-like data architectures.' 
+  },
+  { 
     name: 'Python', 
     level: 60, 
     icon: Braces,

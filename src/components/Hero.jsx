@@ -126,7 +126,7 @@ const Hero = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.2, type: "spring" }}
-            className={`text-4xl md:text-7xl font-bold font-orbitron mb-6 ${isDark ? 'text-white text-glow' : 'text-gray-900'}`}
+            className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold font-orbitron mb-6 ${isDark ? 'text-white text-glow' : 'text-gray-900'}`}
           >
             SHREYAS R A
           </motion.h1>
@@ -137,7 +137,7 @@ const Hero = () => {
             transition={{ duration: 1, delay: 1.8 }}
             className={`font-rajdhani text-xl md:text-2xl mb-8 max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
           >
-            Creative Developer & <span className={isDark ? "text-neon-purple" : "text-pink-600 font-bold"}>3D Web Engineer</span> building immersive digital experiences.
+            MERN Full Stack Developer & <span className={isDark ? "text-neon-purple" : "text-pink-600 font-bold"}>3D Web Engineer</span> building immersive digital experiences.
           </motion.p>
 
           <motion.button
