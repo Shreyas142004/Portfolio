@@ -165,20 +165,20 @@ const Hero = () => {
               className="relative w-56 sm:w-64 md:w-80 aspect-[3/4] z-20 group mx-auto"
             >
               {/* Premium Lanyard */}
-              <div className="absolute -top-40 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-0">
+              <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-0">
                 {/* Lanyard Fabric */}
-                <div className="w-5 h-40 bg-gradient-to-b from-[#111] to-[#222] dark:from-[#050505] dark:to-[#111] shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]"></div>
+                <div className="w-5 h-24 bg-gradient-to-b from-[#111] to-[#222] dark:from-[#050505] dark:to-[#111] shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]"></div>
                 {/* Metallic Clip */}
                 <div className="w-8 h-10 -mt-2 bg-gradient-to-b from-gray-400 via-gray-200 to-gray-500 rounded-sm shadow-xl flex items-center justify-center relative">
                   <div className="w-4 h-6 border-2 border-gray-600 rounded-full absolute -bottom-4"></div>
                 </div>
               </div>
               
-              {/* Card Body - Luxury Black */}
-              <div className="absolute inset-0 bg-[#0a0a0a] rounded-[1.5rem] border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col z-10 pt-4 px-4 pb-8 items-center">
+              {/* Card Body - Luxury Black in dark, White in light */}
+              <div className="absolute inset-0 bg-white dark:bg-[#0a0a0a] rounded-[1.5rem] border border-black/10 dark:border-white/20 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.4)] dark:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col z-10 pt-4 px-4 pb-8 items-center">
                  
                  {/* Vignette Overlay */}
-                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none z-20"></div>
+                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.1)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none z-20"></div>
                  
                  {/* ID Photo */}
                  <div className="w-full h-full flex-1 rounded-[1rem] overflow-hidden relative border border-white/10 bg-black z-10">
@@ -187,12 +187,11 @@ const Hero = () => {
                       alt="Shreyas R A"
                       className="w-full h-full object-cover filter grayscale contrast-125 brightness-90"
                    />
-                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80 pointer-events-none"></div>
                  </div>
                  
                  {/* ID Details (Minimalist) */}
                  <div className="w-full mt-6 text-center z-10">
-                   <h3 className="font-medium text-lg md:text-xl uppercase tracking-[0.2em] text-white" style={{ fontFamily: '"Inter", "Helvetica Neue", sans-serif' }}>
+                   <h3 className="font-medium text-lg md:text-xl uppercase tracking-[0.2em] text-black dark:text-white" style={{ fontFamily: '"Inter", "Helvetica Neue", sans-serif' }}>
                      Shreyas R A
                    </h3>
                  </div>
