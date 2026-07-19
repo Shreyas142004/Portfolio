@@ -116,7 +116,7 @@ const Contact = () => {
                     id="name"
                     name="name"
                     required
-                    className="bg-white dark:bg-[#0a0a0a] px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all"
+                    className="bg-white dark:bg-[#0a0a0a] text-black dark:text-white placeholder:text-black/40 dark:placeholder:text-white/40 px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all"
                     placeholder="Enter your name"/>
                 </div>
 
@@ -127,7 +127,7 @@ const Contact = () => {
                     id="email"
                     name="email"
                     required
-                    className="bg-white dark:bg-[#0a0a0a] px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all"
+                    className="bg-white dark:bg-[#0a0a0a] text-black dark:text-white placeholder:text-black/40 dark:placeholder:text-white/40 px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -139,7 +139,7 @@ const Contact = () => {
                     name="message"
                     required
                     rows={4}
-                    className="bg-white dark:bg-[#0a0a0a] px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all resize-none"
+                    className="bg-white dark:bg-[#0a0a0a] text-black dark:text-white placeholder:text-black/40 dark:placeholder:text-white/40 px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all resize-none"
                     placeholder="Your message here..."
                   ></textarea>
                 </div>
