@@ -1,14 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Document, Page, pdfjs } from 'react-pdf';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
-
-// Set up pdf.js worker for Vite
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString();
 
 const certificates = [
   {
@@ -16,24 +7,28 @@ const certificates = [
     issuer: 'Google Cloud',
     year: '2026',
     link: '/Generative AI Studio.pdf',
+    image: '/Thumbnail/Generative AI Studio.png',
   },
   {
     title: 'Google Bootcamp H2S',
     issuer: 'Google',
     year: '2026',
     link: '/Google_Bootcamp-H2S.pdf',
+    image: '/Thumbnail/Google_Bootcamp-H2S.png',
   },
   {
     title: 'Advanced Git Concepts',
     issuer: 'Online Course',
     year: '2026',
     link: '/Advanced Git Concepts.pdf',
+    image: '/Thumbnail/Advanced Git Concepts.png',
   },
   {
     title: 'MOOC Course',
     issuer: 'Online Learning',
     year: '2026',
     link: '/MOOC-Course.pdf',
+    image: '/Thumbnail/MOOC course.png',
   },
 ];
 
@@ -69,21 +64,13 @@ const Certificates = () => {
                 <div className="relative flex justify-center items-center bg-black/5 dark:bg-white/5 h-48 overflow-hidden">
                   <div className="z-10 absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300"></div>
                   
-                  {/* PDF Thumbnail */}
-                  <div className="grayscale group-hover:grayscale-0 absolute inset-0 w-full h-full group-hover:scale-105 transition-all duration-500 pointer-events-none filter transform flex items-center justify-center overflow-hidden">
-                    <Document 
-                      file={cert.link} 
-                      className="w-full h-full flex items-center justify-center"
-                      loading={<div className="flex justify-center items-center h-48 w-full">Loading...</div>}
-                    >
-                      <Page 
-                        pageNumber={1} 
-                        width={400}
-                        className="w-full h-full flex justify-center items-center [&>canvas]:w-full [&>canvas]:h-full [&>canvas]:object-cover" 
-                        renderTextLayer={false} 
-                        renderAnnotationLayer={false} 
-                      />
-                    </Document>
+                  {/* Thumbnail Image */}
+                  <div className="absolute inset-0 w-full h-full overflow-hidden">
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
                   </div>
                   <div className="top-4 right-4 z-20 absolute">
                     <span className="bg-white/90 shadow-sm px-3 py-1 rounded-full font-bold text-black text-xs">

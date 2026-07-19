@@ -111,15 +111,17 @@ const Projects = () => {
                       <FiGithub size={18} />
                       Code
                     </a>
-                    <a 
-                      href={project.live} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 ml-auto font-medium hover:text-accent text-sm transition-colors"
-                    >
-                      <FiExternalLink size={18} />
-                      Live Demo
-                    </a>
+                    {project.live !== '#' && (
+                      <a 
+                        href={project.live} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 ml-auto font-medium hover:text-accent text-sm transition-colors"
+                      >
+                        <FiExternalLink size={18} />
+                        Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </motion.div>

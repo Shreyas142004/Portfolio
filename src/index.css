@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-accent: #facc15;
+  --color-accent: var(--accent-color);
   --color-bg-primary: var(--bg-primary);
   --color-bg-card: var(--bg-card);
   --color-border-subtle: var(--border-subtle);
@@ -14,6 +14,7 @@
 @layer base {
   :root {
     /* Dark Mode (Default) */
+    --accent-color: #facc15; /* Vibrant Yellow */
     --bg-primary: #050505;
     --bg-gradient: linear-gradient(135deg, #050505 0%, #050505 100%);
     --bg-card: rgba(255, 255, 255, 0.05);
@@ -23,12 +24,13 @@
   }
 
   .light {
-    --bg-primary: #ffffff;
-    --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-    --bg-card: #f3f4f6; /* gray-100 */
-    --border-subtle: #e5e7eb; /* gray-200 */
-    --text-primary: #000000;
-    --text-secondary: #4b5563; /* gray-600 */
+    --accent-color: #eab308; /* Golden Yellow */
+    --bg-primary: #f8fafc; /* slate-50 */
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); /* soft slate mesh */
+    --bg-card: rgba(255, 255, 255, 0.7); /* translucent white for glass effect */
+    --border-subtle: rgba(0, 0, 0, 0.06);
+    --text-primary: #0f172a; /* slate-900 */
+    --text-secondary: #475569; /* slate-600 */
   }
 
   body {

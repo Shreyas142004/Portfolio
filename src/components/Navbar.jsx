@@ -46,10 +46,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'py-4 bg-white/70 dark:bg-[#050505]/70 backdrop-blur-lg border-b border-black/5 dark:border-white/5'
-          : 'py-6 bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/70 dark:bg-[#050505]/70 backdrop-blur-lg border-b border-black/5 dark:border-white/5 ${
+        scrolled ? 'py-4' : 'py-6'
       }`}
     >
       <div className="flex justify-between items-center mx-auto px-6 container">

@@ -36,72 +36,72 @@ const Contact = () => {
         setResultMessage('Something went wrong. Please try again later.');
       }
     } catch (error) {
+      console.error("Failed to submit form:", error);
       setResultMessage('Network error. Please try again.');
     }
-    
+
     setIsSubmitting(false);
     setTimeout(() => setResultMessage(''), 5000);
   };
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="contact" className="relative py-24 overflow-hidden">
+      <div className="z-10 relative mx-auto px-6 container">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
-          className="max-w-5xl mx-auto"
+          className="mx-auto max-w-5xl"
         >
-          <div className="flex items-center gap-4 mb-16 text-center justify-center">
-            <h2 className="text-4xl md:text-5xl font-bold">Get In Touch</h2>
+          <div className="flex justify-center items-center gap-4 mb-16 text-center">
+            <h2 className="font-bold text-4xl md:text-5xl">Get In Touch</h2>
           </div>
 
-          <div className="bg-white/50 dark:bg-white/5 backdrop-blur-xl border border-black/5 dark:border-white/10 rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
-              
+          <div className="bg-white/50 dark:bg-white/5 shadow-[0_8px_30px_rgb(0 0 0 0.04)] dark:shadow-[0_8px_30px_rgb(0 0 0 0.12)] backdrop-blur-xl p-8 md:p-12 border border-black/5 dark:border-white/10 rounded-3xl">
+            <div className="gap-12 lg:gap-24 grid grid-cols-1 md:grid-cols-2">
+
               {/* Left Column: Info & Socials */}
               <div className="flex flex-col justify-between h-full">
                 <div>
-                  <h3 className="text-3xl font-bold mb-4">Let's work together!</h3>
-                  <p className="text-black/70 dark:text-white/70 text-lg mb-8 leading-relaxed">
+                  <h3 className="mb-4 font-bold text-3xl">Let's work together!</h3>
+                  <p className="mb-8 text-black/70 dark:text-white/70 text-lg leading-relaxed">
                     I'm currently open for new opportunities, freelance projects, or just a friendly chat about web development and AI. Feel free to drop a message!
                   </p>
                 </div>
 
                 <div className="space-y-6">
-                  <a href="mailto:shreyasra7@gmail.com" className="flex items-center gap-4 text-lg font-medium hover:text-accent transition-colors">
-                    <div className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center">
+                  <a href="mailto:shreyasra7@gmail.com" className="flex items-center gap-4 font-medium hover:text-accent text-lg transition-colors">
+                    <div className="flex justify-center items-center bg-black/5 dark:bg-white/5 rounded-full w-12 h-12">
                       <FiMail size={20} />
                     </div>
                     shreyasra7@gmail.com
                   </a>
-                  
+
                   <div className="flex gap-4 pt-4">
-                    <a 
-                      href="https://github.com/Shreyas142004" 
-                      target="_blank" 
+                    <a
+                      href="https://github.com/Shreyas142004"
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center hover:bg-accent hover:text-black transition-colors"
+                      className="group flex justify-center items-center bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 rounded-full w-12 h-12 transition-colors"
                     >
-                      <FiGithub size={20} />
+                      <FiGithub size={20} className="text-text-secondary group-hover:text-accent transition-colors" />
                     </a>
-                    <a 
-                      href="https://www.linkedin.com/in/shreyas-r-a-6a0567305" 
-                      target="_blank" 
+                    <a
+                      href="https://www.linkedin.com/in/shreyas-r-a-6a0567305"
+                      target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center hover:bg-accent hover:text-black transition-colors"
+                      className="group flex justify-center items-center bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 rounded-full w-12 h-12 transition-colors"
                     >
-                      <FiLinkedin size={20} />
+                      <FiLinkedin size={20} className="text-text-secondary group-hover:text-accent transition-colors" />
                     </a>
-                    
-                    {/* Resume Download Link - Ensure resume.pdf is in the public folder */}
-                    <a 
-                      href="/Shreyas-Resume.pdf" 
+
+                    <a
+                      href="/Shreyas-Resume.pdf"
                       download
                       title="Download Resume"
-                      className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center hover:bg-accent hover:text-black transition-colors ml-auto md:ml-0"
+                      className="group flex justify-center items-center bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 ml-auto md:ml-0 rounded-full w-12 h-12 transition-colors"
                     >
-                      <FiDownload size={20} />
+                      <FiDownload size={20} className="text-text-secondary group-hover:text-accent transition-colors" />
                     </a>
                   </div>
                 </div>
@@ -110,37 +110,36 @@ const Contact = () => {
               {/* Right Column: Form */}
               <form className="flex flex-col gap-6" onSubmit={onSubmit}>
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-black/70 dark:text-white/70 mb-2">Name</label>
-                  <input 
-                    type="text" 
-                    id="name" 
+                  <label htmlFor="name" className="block mb-2 font-medium text-black/70 dark:text-white/70 text-sm">Name</label>
+                  <input
+                    type="text"
+                    id="name"
                     name="name"
                     required
-                    className="w-full bg-white dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
-                    placeholder="John Doe"
-                  />
+                    className="bg-white dark:bg-[#0a0a0a] px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all"
+                    placeholder="Enter your name"/>
                 </div>
-                
+
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-black/70 dark:text-white/70 mb-2">Email</label>
-                  <input 
-                    type="email" 
-                    id="email" 
+                  <label htmlFor="email" className="block mb-2 font-medium text-black/70 dark:text-white/70 text-sm">Email</label>
+                  <input
+                    type="email"
+                    id="email"
                     name="email"
                     required
-                    className="w-full bg-white dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
-                    placeholder="john@example.com"
+                    className="bg-white dark:bg-[#0a0a0a] px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all"
+                    placeholder="Enter your email"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-black/70 dark:text-white/70 mb-2">Message</label>
-                  <textarea 
-                    id="message" 
+                  <label htmlFor="message" className="block mb-2 font-medium text-black/70 dark:text-white/70 text-sm">Message</label>
+                  <textarea
+                    id="message"
                     name="message"
                     required
                     rows={4}
-                    className="w-full bg-white dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all resize-none"
+                    className="bg-white dark:bg-[#0a0a0a] px-4 py-3 border border-black/10 focus:border-accent dark:border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-accent w-full transition-all resize-none"
                     placeholder="Your message here..."
                   ></textarea>
                 </div>
@@ -150,14 +149,14 @@ const Contact = () => {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-4 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-accent hover:bg-yellow-500'} text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-colors shadow-[0_0_20px_rgba(250,204,21,0.2)] mt-2`}
+                  className={`w-full py-4 ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-black' : 'bg-accent hover:opacity-90 text-white dark:text-black'} font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg mt-2`}
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                   {!isSubmitting && <FiSend />}
                 </motion.button>
 
                 {resultMessage && (
-                  <p className="text-center text-sm font-medium text-accent mt-2">
+                  <p className="mt-2 font-medium text-accent text-sm text-center">
                     {resultMessage}
                   </p>
                 )}
@@ -167,9 +166,9 @@ const Contact = () => {
           </div>
         </motion.div>
       </div>
-      
+
       {/* Decorative Blob */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[150px] -z-10 pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
+      <div className="top-0 right-0 -z-10 absolute bg-accent/5 blur-[150px] rounded-full w-96 h-96 -translate-y-1/3 translate-x-1/3 pointer-events-none transform"></div>
     </section>
   );
 };
