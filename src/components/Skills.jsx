@@ -1,249 +1,112 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Leaf, 
-  Mountain, 
   Code2, 
+  LayoutTemplate, 
+  MonitorSmartphone, 
   FileCode2, 
-  Database, 
+  Cpu, 
+  Layers, 
   Braces, 
   TerminalSquare, 
+  Database, 
+  Brain, 
+  Sparkles, 
   GitBranch, 
-  LayoutTemplate,
-  MonitorSmartphone,
-  Cpu
+  Cloud 
 } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
-const webSkills = [
-  { 
-    name: 'JavaScript', 
-    level: 85, 
-    icon: FileCode2,
-    desc: 'Dynamic DOM engines, Canvas animation vectors, and ES6 applications.' 
-  },
-  { 
-    name: 'HTML5 & CSS3', 
-    level: 90, 
-    icon: LayoutTemplate,
-    desc: 'Semantic layouts, responsive flexbox/grid structures, and custom typography.' 
-  },
-  { 
-    name: 'React', 
-    level: 60, 
-    icon: Code2,
-    desc: 'Component-based UI architectures, state management, and modern hooks.' 
-  },
-  { 
-    name: 'Tailwind CSS', 
-    level: 60, 
-    icon: MonitorSmartphone,
-    desc: 'Utility-first styling, rapid UI development, and responsive design.' 
-  },
-  { 
-    name: 'Git & GitHub', 
-    level: 75, 
-    icon: GitBranch,
-    desc: 'Version control workflows, repository management, and branches structure.' 
-  }
-];
-
-const coreSkills = [
-  { 
-    name: 'Java', 
-    level: 75, 
-    icon: Code2,
-    desc: 'Object-Oriented design patterns, abstract class hierarchy, and robust program flows.' 
-  },
-  { 
-    name: 'MySQL', 
-    level: 80, 
-    icon: Database,
-    desc: 'Database schema construction, queries execution, table relationships mapping.' 
-  },
-  { 
-    name: 'MongoDB', 
-    level: 75, 
-    icon: Database,
-    desc: 'NoSQL document storage, flexible schemas, and scalable JSON-like data architectures.' 
-  },
-  { 
-    name: 'Python', 
-    level: 60, 
-    icon: Braces,
-    desc: 'Scripting files, data processing, and automation.' 
-  },
-  { 
-    name: 'C Programming', 
-    level: 75, 
-    icon: TerminalSquare,
-    desc: 'CLI modular systems, persistent file management inputs, account ledgers.' 
-  }
-];
-
-const CyberSkillBar = ({ skill, index, isDark, isOpen, onToggle }) => {
-  const Icon = skill.icon;
-  
-  return (
-    <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onClick={onToggle}
-      className={`relative p-4 mb-4 rounded-r-xl border-l-4 transition-all duration-300 cursor-pointer ${
-        isDark 
-          ? 'bg-black/60 border-neon-cyan hover:bg-neon-cyan/10 hover:shadow-[0_0_15px_rgba(0,255,255,0.15)]' 
-          : 'bg-white/60 border-blue-600 hover:bg-blue-50 hover:shadow-md'
-      }`}
-    >
-      {/* Always visible: Icon and Name */}
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg transition-colors duration-300 ${
-            isDark 
-              ? (isOpen ? 'bg-neon-cyan text-black' : 'bg-gray-800 text-neon-cyan')
-              : (isOpen ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600')
-          }`}>
-            <Icon className="w-5 h-5" />
-          </div>
-          <span className={`font-orbitron font-bold tracking-wider text-lg ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            {skill.name}
-          </span>
-        </div>
-        
-        {/* Helper arrow indicating expansion */}
-        <motion.div 
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-          className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}
-        >
-          ▼
-        </motion.div>
-      </div>
-
-      {/* Expandable Content (Percentage, Bar, Description) */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
-          >
-            <div className="pt-5 pb-2">
-              <div className="flex justify-end mb-2">
-                <div className={`font-rajdhani font-bold text-xl ${isDark ? 'text-neon-purple text-glow-purple' : 'text-pink-600'}`}>
-                  {skill.level}<span className="text-sm text-gray-500">%</span>
-                </div>
-              </div>
-
-              {/* Cyberpunk Progress Bar */}
-              <div className="relative w-full h-2 bg-gray-800 rounded-full overflow-hidden mb-3">
-                <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEwIDBMMCAwaDB2MTBoMTBWMHoiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iMSIvPjwvc3ZnPg==')] mix-blend-overlay" />
-                
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${skill.level}%` }}
-                  transition={{ duration: 1, ease: "circOut", delay: 0.1 }}
-                  className={`relative h-full ${
-                    isDark 
-                      ? 'bg-gradient-to-r from-neon-purple to-neon-cyan' 
-                      : 'bg-gradient-to-r from-pink-500 to-blue-500'
-                  }`}
-                >
-                  <motion.div 
-                    animate={{ opacity: [0.5, 1, 0.5] }}
-                    transition={{ repeat: Infinity, duration: 1.5 }}
-                    className={`absolute right-0 top-0 bottom-0 w-4 blur-[4px] ${isDark ? 'bg-white' : 'bg-blue-200'}`}
-                  />
-                </motion.div>
-              </div>
-
-              {/* Description */}
-              <p className={`font-rajdhani text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                <span className={isDark ? 'text-neon-cyan/50' : 'text-blue-400'}>&gt;_ </span>
-                {skill.desc}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      
-      {/* Decorative corners */}
-      <div className={`absolute top-0 right-0 w-2 h-2 border-t border-r ${isDark ? 'border-neon-cyan/30' : 'border-blue-300'}`} />
-      <div className={`absolute bottom-0 right-0 w-2 h-2 border-b border-r ${isDark ? 'border-neon-cyan/30' : 'border-blue-300'}`} />
-    </motion.div>
-  );
+const webSkills = {
+  title: "WEB DEV & UTILITIES",
+  icon: LayoutTemplate,
+  panelId: "SYS_FE_MATRIX",
+  skills: [
+    { name: 'JavaScript', icon: FileCode2, desc: 'Dynamic DOM engines, Canvas animation vectors, and ES6 applications.' },
+    { name: 'HTML5 & CSS3', icon: LayoutTemplate, desc: 'Semantic layouts, responsive flexbox/grid structures, and custom typography.' },
+    { name: 'React', icon: Code2, desc: 'Component-based UI architectures, state management, and modern hooks.' },
+    { name: 'Tailwind CSS', icon: MonitorSmartphone, desc: 'Utility-first styling, rapid UI development, and responsive design.' },
+    { name: 'Git & GitHub', icon: GitBranch, desc: 'Decentralized version control, team branch merging workflows, and commit grids.' },
+    { name: 'Google Cloud Platform', icon: Cloud, desc: 'Cloud console bucket storage, virtual nodes orchestration, and model testing.' }
+  ]
 };
 
-const HUDPanel = ({ title, icon: Icon, skills, isDark, panelId }) => {
-  const [activeSkill, setActiveSkill] = useState(null);
+const coreSkills = {
+  title: "CORE CODE & INTELLIGENT SYSTEMS",
+  icon: Cpu,
+  panelId: "SYS_BE_MATRIX",
+  skills: [
+    { name: 'Node.js', icon: Cpu, desc: 'Server-side runtime environments, asynchronous task managers, backend logic.' },
+    { name: 'Express.js', icon: Layers, desc: 'API endpoint configurations, request routing filters, and middleware pipelines.' },
+    { name: 'Java', icon: Code2, desc: 'Object-Oriented design patterns, abstract class hierarchy, and robust program flows.' },
+    { name: 'Python', icon: Braces, desc: 'Scripting automation routines, data pipelines, and machine learning structures.' },
+    { name: 'C Programming', icon: TerminalSquare, desc: 'CLI modular systems, persistent file management inputs, and account ledger algorithms.' },
+    { name: 'MySQL', icon: Database, desc: 'Relational schema structures, complex query designs, and table mapping linkages.' },
+    { name: 'MongoDB', icon: Database, desc: 'NoSQL document storage frameworks, flexible collection schemas, and JSON arrays.' },
+    { name: 'Generative AI', icon: Sparkles, desc: 'Prompt engineering parameters, Generative AI models, and vector processing.' },
+    { name: 'Machine Learning', icon: Brain, desc: 'Data processing pipelines, pattern classification subroutines, and basic models.' }
+  ]
+};
+
+const HUDModulePanel = ({ data, isDark }) => {
+  const PanelIcon = data.icon;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-      className={`relative w-full overflow-hidden ${
+    <div
+      className={`relative w-full overflow-hidden flex flex-col p-6 sm:p-8 rounded-xl border h-full ${
         isDark 
-          ? 'bg-[#050505]/90 border border-gray-800 shadow-[0_0_30px_rgba(0,0,0,0.8)]' 
-          : 'bg-white/80 border border-gray-200 shadow-xl'
-      } backdrop-blur-xl`}
+          ? 'bg-black/70 border-white/10 hover:border-neon-cyan/25 shadow-[0_0_20px_rgba(0,0,0,0.5)]' 
+          : 'bg-white border-gray-200 shadow-md hover:border-blue-400'
+      } transition-colors duration-300`}
       style={{
-        clipPath: 'polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px))'
+        clipPath: 'polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 0 100%)'
       }}
     >
-      {/* Top decorative bar */}
-      <div className={`h-1 w-full ${isDark ? 'bg-gradient-to-r from-neon-purple via-neon-cyan to-transparent' : 'bg-gradient-to-r from-pink-500 via-blue-500 to-transparent'}`} />
-      
-      <div className="p-6 md:p-8">
-        {/* Panel Header */}
-        <div className="flex justify-between items-start mb-10">
-          <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-tr-xl rounded-bl-xl border ${isDark ? 'bg-gray-900 border-neon-cyan/50 text-neon-cyan shadow-[0_0_15px_rgba(0,255,255,0.2)]' : 'bg-blue-50 border-blue-200 text-blue-600'}`}>
-              <Icon className="w-8 h-8" />
-            </div>
-            <div>
-              <h3 className={`text-2xl font-orbitron font-bold tracking-widest uppercase ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                {title}
-              </h3>
-              <p className={`font-rajdhani text-sm ${isDark ? 'text-neon-purple' : 'text-pink-500'}`}>
-                SYSTEM_NODE // {panelId}
-              </p>
-            </div>
+      {/* Header bar */}
+      <div className="flex justify-between items-center mb-6 pb-3 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <div className={`p-2.5 rounded border ${isDark ? 'bg-gray-900 border-neon-purple/40 text-neon-purple' : 'bg-pink-50 border-pink-200 text-pink-600'}`}>
+            <PanelIcon className="w-6 h-6" />
           </div>
-          
-          {/* Decorative HUD Elements */}
-          <div className="hidden sm:flex flex-col items-end gap-1 opacity-50">
-            <div className={`w-16 h-1 ${isDark ? 'bg-neon-cyan' : 'bg-blue-500'}`} />
-            <div className={`w-12 h-1 ${isDark ? 'bg-neon-purple' : 'bg-pink-500'}`} />
-            <div className={`w-8 h-1 ${isDark ? 'bg-gray-500' : 'bg-gray-300'}`} />
+          <div>
+            <h4 className={`text-base sm:text-lg font-orbitron font-bold tracking-widest ${isDark ? 'text-white text-glow-purple' : 'text-gray-900'}`}>
+              {data.title}
+            </h4>
+            <span className={`block font-mono text-[9px] ${isDark ? 'text-neon-cyan/50' : 'text-blue-500'}`}>
+              SYSTEM // {data.panelId}
+            </span>
           </div>
-        </div>
-
-        {/* Skills Container */}
-        <div className="space-y-2">
-          {skills.map((skill, index) => (
-            <CyberSkillBar 
-              key={skill.name} 
-              skill={skill} 
-              index={index} 
-              isDark={isDark} 
-              isOpen={activeSkill === skill.name}
-              onToggle={() => setActiveSkill(activeSkill === skill.name ? null : skill.name)}
-            />
-          ))}
         </div>
       </div>
-      
-      {/* Background Cyber Grid */}
-      <div className={`absolute inset-0 pointer-events-none opacity-[0.03] z-[-1] ${isDark ? 'bg-white' : 'bg-black'}`}
-        style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '24px 24px' }} 
-      />
-    </motion.div>
+
+      {/* Skills list cards - static panels without progress bars */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {data.skills.map((skill) => {
+          const Icon = skill.icon;
+          return (
+            <div 
+              key={skill.name} 
+              className={`p-4 rounded border relative transition-all duration-300 flex flex-col ${
+                isDark 
+                  ? 'bg-white/[0.02] border-white/5 hover:border-neon-cyan/35 hover:bg-neon-cyan/[0.02]' 
+                  : 'bg-gray-50 border-gray-200 hover:bg-blue-50/30 hover:border-blue-300'
+              }`}
+            >
+              <div className="flex items-center gap-2.5 mb-1.5 flex-shrink-0">
+                <Icon className={`w-4 h-4 ${isDark ? 'text-neon-cyan animate-pulse' : 'text-blue-600'}`} />
+                <span className={`font-orbitron font-bold text-sm tracking-wide ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  {skill.name}
+                </span>
+              </div>
+              <p className={`font-rajdhani text-xs leading-relaxed flex-grow ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                {skill.desc}
+              </p>
+
+              {/* Aesthetic cyber corner bracket */}
+              <div className={`absolute top-0 right-0 w-1 h-1 border-t border-r ${isDark ? 'border-neon-cyan/20' : 'border-blue-200'}`} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
@@ -252,48 +115,34 @@ const Skills = () => {
   const isDark = theme === 'dark';
 
   return (
-    <section className="py-24 relative min-h-screen overflow-hidden bg-transparent flex flex-col justify-center">
-      {/* Background Orbs */}
-      <div className={`absolute top-1/4 -left-64 w-96 h-96 blur-[120px] rounded-full pointer-events-none ${isDark ? 'bg-neon-purple/20' : 'bg-pink-300/30'}`} />
-      <div className={`absolute bottom-1/4 -right-64 w-96 h-96 blur-[120px] rounded-full pointer-events-none ${isDark ? 'bg-neon-cyan/10' : 'bg-blue-300/30'}`} />
+    <section id="skills" className="py-24 relative min-h-screen overflow-hidden bg-transparent flex flex-col justify-center">
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02] z-[-1] cyber-grid-bg" />
+
+      {/* Cyber glows */}
+      <div className={`absolute top-1/3 -left-64 w-80 h-80 blur-[130px] rounded-full pointer-events-none -z-10 ${isDark ? 'bg-neon-purple/10' : 'bg-pink-300/20'}`} />
+      <div className={`absolute bottom-1/3 -right-64 w-80 h-80 blur-[130px] rounded-full pointer-events-none -z-10 ${isDark ? 'bg-neon-cyan/10' : 'bg-blue-300/20'}`} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center mb-16 pt-10"
-        >
-          <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full border mb-6 ${isDark ? 'bg-neon-cyan/10 border-neon-cyan/30 text-neon-cyan' : 'bg-blue-50 border-blue-200 text-blue-600'}`}>
-            <Cpu className="w-5 h-5" />
-            <span className="font-orbitron text-sm tracking-widest font-bold">CAPABILITY_MATRIX</span>
+        {/* Section title header */}
+        <div className="flex flex-col items-center mb-16 pt-10">
+          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-4 ${isDark ? 'bg-neon-cyan/10 border-neon-cyan/30 text-neon-cyan' : 'bg-blue-50 border-blue-200 text-blue-600'}`}>
+            <Cpu className="w-4 h-4" />
+            <span className="font-orbitron text-xs tracking-widest font-bold">CAPABILITY_MATRIX</span>
           </div>
           <h2 className={`text-4xl md:text-5xl font-orbitron font-bold mb-4 text-center ${isDark ? 'text-white text-glow' : 'text-gray-900'}`}>
-            TECHNICAL ARSENAL
+            CAPABILITIES ARSENAL
           </h2>
           <div className="flex gap-2">
-            <div className={`w-12 h-1 ${isDark ? 'bg-neon-purple' : 'bg-pink-500'}`} />
-            <div className={`w-12 h-1 ${isDark ? 'bg-neon-cyan' : 'bg-blue-500'}`} />
+            <div className={`w-16 h-1 ${isDark ? 'bg-neon-purple box-glow' : 'bg-pink-500'}`} />
+            <div className={`w-8 h-1 ${isDark ? 'bg-neon-cyan box-glow-cyan' : 'bg-blue-500'}`} />
           </div>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 perspective-1000">
-          <HUDPanel 
-            title="Web Dev" 
-            icon={Leaf} 
-            skills={webSkills} 
-            isDark={isDark}
-            panelId="FRONT_END_01" 
-          />
-          <HUDPanel 
-            title="Core Code" 
-            icon={Mountain} 
-            skills={coreSkills} 
-            isDark={isDark}
-            panelId="BACK_END_02" 
-          />
+        {/* Modules Console Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <HUDModulePanel data={webSkills} isDark={isDark} />
+          <HUDModulePanel data={coreSkills} isDark={isDark} />
         </div>
 
       </div>

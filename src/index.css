@@ -7,8 +7,10 @@
   --color-neon-blue: #00f3ff;
   --color-neon-cyan: #00ffff;
   --color-neon-purple: #bc13fe;
+  --color-neon-magenta: #ff007f;
+  --color-neon-pink: #ff00ff;
   --color-metallic: #8a8a8a;
-  --color-bg-dark: #050505;
+  --color-bg-dark: #030307;
 }
 
 :root {
@@ -21,36 +23,128 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #050505;
-  cursor: none; /* We'll use a custom cursor */
+  background-color: #030307;
+  cursor: none; /* Custom cursor */
 }
 
 /* Custom Webkit Scrollbar for Cyberpunk theme */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: #010103;
+  border-left: 1px solid rgba(0, 255, 255, 0.1);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-neon-purple);
-  border-radius: 4px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px var(--color-neon-purple);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-neon-cyan);
+  box-shadow: 0 0 8px var(--color-neon-cyan);
 }
 
+/* Typography spacing */
+p {
+  letter-spacing: 0.05em;
+}
+
+/* Glow effects */
 .text-glow {
   text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4);
 }
 
+.text-glow-purple {
+  text-shadow: 0 0 10px rgba(188, 19, 254, 0.8), 0 0 20px rgba(188, 19, 254, 0.4);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4);
+}
+
 .box-glow {
-  box-shadow: 0 0 15px rgba(188, 19, 254, 0.5), inset 0 0 15px rgba(188, 19, 254, 0.2);
+  box-shadow: 0 0 15px rgba(188, 19, 254, 0.4), inset 0 0 15px rgba(188, 19, 254, 0.2);
+}
+
+.box-glow-cyan {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4), inset 0 0 15px rgba(0, 255, 255, 0.2);
 }
 
 .glass-panel {
-  background: rgba(10, 10, 15, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(4, 4, 8, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+}
+
+/* Futuristic clipped layouts */
+.cyber-clip-tr {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+.cyber-clip-bl-tr {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+.cyber-clip-corners {
+  clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px);
+}
+
+/* Digital Grid backgrounds */
+.cyber-grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Scan lines effect */
+.scan-line-overlay {
+  position: relative;
+}
+.scan-line-overlay::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scan-laser {
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 255, 0.8), transparent);
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* UI Circuit Line Elements */
+.circuit-line {
+  position: absolute;
+  background: rgba(0, 255, 255, 0.2);
+}
+
+/* Font styles overrides */
+.font-orbitron {
+  font-family: var(--font-orbitron);
+}
+
+.font-rajdhani {
+  font-family: var(--font-rajdhani);
 }

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { Send, Terminal, Mail } from 'lucide-react';
+import { Send, Terminal, Copy, Check, Download } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
 const GithubIcon = ({ className }) => (
@@ -22,23 +22,28 @@ const Contact = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
   const cardRef = useRef(null);
   
-  // Hover glow effect values
+  // Hover glow coordinates
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   function handleMouseMove(e) {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    
-    // For the glow effect
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
   }
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('shreyasra7@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,134 +84,177 @@ const Contact = () => {
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden min-h-screen bg-transparent">
-      <div className={`absolute bottom-0 right-0 w-[600px] h-[600px] blur-[150px] pointer-events-none ${isDark ? 'bg-neon-cyan/5' : 'bg-blue-300/10'}`} />
+      {/* Abstract Grid background */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02] z-[-1] cyber-grid-bg" />
+      <div className={`absolute bottom-0 right-0 w-[550px] h-[550px] blur-[140px] pointer-events-none -z-10 ${isDark ? 'bg-neon-cyan/5' : 'bg-blue-300/10'}`} />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-10">
+        
+        {/* Section title header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-4 ${
+            isDark ? 'bg-neon-cyan/10 border-neon-cyan/30 text-neon-cyan' : 'bg-blue-50 border-blue-200 text-blue-600'
+          }`}>
+            <Terminal className="w-4 h-4 animate-pulse" />
+            <span className="font-orbitron text-xs tracking-widest font-bold font-mono">SYS_COMM_ARRAY</span>
+          </div>
           <h2 className={`text-4xl md:text-5xl font-orbitron font-bold mb-4 ${isDark ? 'text-white text-glow' : 'text-gray-900'}`}>
-            <span className={isDark ? 'text-neon-cyan' : 'text-blue-600'}>&gt;</span> COMM_LINK
+            SECURE LINK UPLINK
           </h2>
-          <div className={`w-24 h-1 mx-auto ${isDark ? 'bg-neon-purple box-glow' : 'bg-blue-500'}`} />
+          <div className={`w-28 h-1 mx-auto ${isDark ? 'bg-neon-purple box-glow' : 'bg-pink-500'}`} />
         </motion.div>
 
+        {/* Communication Terminal */}
         <motion.div
           ref={cardRef}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           onMouseMove={handleMouseMove}
           className="relative"
         >
-          {/* Linear Gradient Box Shadow */}
-          <div className={`absolute -inset-1 rounded-2xl blur-xl opacity-70 animate-pulse ${
+          {/* Neon outer gradient ring border */}
+          <div className={`absolute -inset-1.5 rounded-2xl blur-xl opacity-60 animate-pulse ${
             isDark 
               ? 'bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-cyan' 
               : 'bg-gradient-to-r from-blue-400 via-pink-400 to-blue-400'
           }`} />
 
           <div className={`p-1 relative z-10 overflow-hidden transition-colors duration-300 ${
-            isDark ? 'bg-black/90 border border-white/10' : 'bg-white border border-gray-200'
+            isDark ? 'bg-black/90 border border-white/10' : 'bg-white border border-gray-200 shadow-xl'
           }`} style={{ clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)' }}>
             
-            {/* Glow effect on hover */}
+            {/* Hover mouse glow */}
             <motion.div
               className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 hover:opacity-100 z-0"
               style={{
                 background: useMotionTemplate`
                   radial-gradient(
-                    400px circle at ${mouseX}px ${mouseY}px,
-                    ${isDark ? 'rgba(0, 255, 255, 0.15)' : 'rgba(37, 99, 235, 0.1)'},
-                    transparent 80%
+                    450px circle at ${mouseX}px ${mouseY}px,
+                    ${isDark ? 'rgba(0, 255, 255, 0.12)' : 'rgba(37, 99, 235, 0.06)'},
+                    transparent 85%
                   )
                 `,
               }}
             />
 
-            {/* Corner Crosshairs */}
-            <div className={`absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 pointer-events-none ${isDark ? 'border-neon-cyan' : 'border-blue-500'}`} />
-            <div className={`absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 pointer-events-none ${isDark ? 'border-neon-cyan' : 'border-blue-500'}`} />
-            <div className={`absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 pointer-events-none ${isDark ? 'border-neon-cyan' : 'border-blue-500'}`} />
+            {/* Brackets & Crosshairs */}
+            <div className={`absolute top-2.5 left-2.5 w-5 h-5 border-t-2 border-l-2 pointer-events-none ${isDark ? 'border-neon-cyan' : 'border-blue-500'}`} />
+            <div className={`absolute top-2.5 right-2.5 w-5 h-5 border-t-2 border-r-2 pointer-events-none ${isDark ? 'border-neon-cyan' : 'border-blue-500'}`} />
+            <div className={`absolute bottom-2.5 left-2.5 w-5 h-5 border-b-2 border-l-2 pointer-events-none ${isDark ? 'border-neon-cyan' : 'border-blue-500'}`} />
             
-            <div className={`p-8 relative z-10 flex flex-col h-full ${isDark ? 'bg-black/80 backdrop-blur-md' : 'bg-white/90'}`}>
-              <div className={`flex items-center gap-2 mb-8 border-b pb-4 ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
-                <Terminal className={`w-6 h-6 animate-pulse ${isDark ? 'text-neon-cyan' : 'text-blue-600'}`} />
-                <span className={`font-mono text-sm tracking-widest ${isDark ? 'text-neon-cyan' : 'text-blue-600'}`}>SYS.COMM_ARRAY // SECURE_UPLINK</span>
+            <div className={`p-6 sm:p-10 relative z-10 flex flex-col h-full ${isDark ? 'bg-black/75 backdrop-blur-md' : 'bg-white/90'}`}>
+              
+              {/* Header block with Availability and system log */}
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8 border-b border-white/10 pb-6">
+                <div className="flex items-center gap-2">
+                  <Terminal className={`w-5 h-5 animate-pulse ${isDark ? 'text-neon-cyan' : 'text-blue-600'}`} />
+                  <span className={`font-mono text-xs tracking-widest ${isDark ? 'text-neon-cyan/70' : 'text-blue-600'}`}>
+                    UPLINK_ARRAY // SYSTEM_COMM_CHANNEL
+                  </span>
+                </div>
+                
+                {/* pulsing availability indicator */}
+                <div className="flex items-center gap-2 bg-black/45 border border-white/10 px-3.5 py-1.5 rounded-full w-fit">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <span className="font-orbitron text-[9px] tracking-widest text-green-400 font-bold">
+                    STABILITY: ACTIVE // OPEN TO HIRE
+                  </span>
+                </div>
               </div>
 
-              {/* Contact Icons */}
-              <div className="flex justify-center gap-6 mb-10">
-                <a href="mailto:shreyasra7@gmail.com" className={`flex flex-col items-center gap-2 group transition-transform hover:scale-110 ${isDark ? 'text-gray-400 hover:text-neon-cyan' : 'text-gray-600 hover:text-blue-600'}`}>
-                  <div className={`p-4 rounded-lg border-2 transform rotate-45 transition-colors ${isDark ? 'border-white/10 group-hover:border-neon-cyan bg-black' : 'border-gray-200 group-hover:border-blue-600 bg-white'}`}>
-                    <Mail className="w-6 h-6 -rotate-45" />
-                  </div>
-                  <span className="font-orbitron text-xs mt-2">EMAIL</span>
-                </a>
-                <a href="https://github.com/Shreyas142004" target="_blank" rel="noreferrer" className={`flex flex-col items-center gap-2 group transition-transform hover:scale-110 ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'}`}>
-                  <div className={`p-4 rounded-lg border-2 transform rotate-45 transition-colors ${isDark ? 'border-white/10 group-hover:border-white bg-black' : 'border-gray-200 group-hover:border-gray-800 bg-white'}`}>
-                    <GithubIcon className="w-6 h-6 -rotate-45" />
-                  </div>
-                  <span className="font-orbitron text-xs mt-2">GITHUB</span>
-                </a>
-                <a href="https://www.linkedin.com/in/shreyas-r-a-6a0567305" target="_blank" rel="noreferrer" className={`flex flex-col items-center gap-2 group transition-transform hover:scale-110 ${isDark ? 'text-gray-400 hover:text-[#0077b5]' : 'text-gray-600 hover:text-[#0077b5]'}`}>
-                  <div className={`p-4 rounded-lg border-2 transform rotate-45 transition-colors ${isDark ? 'border-white/10 group-hover:border-[#0077b5] bg-black' : 'border-gray-200 group-hover:border-[#0077b5] bg-white'}`}>
-                    <LinkedinIcon className="w-6 h-6 -rotate-45" />
-                  </div>
-                  <span className="font-orbitron text-xs mt-2">LINKEDIN</span>
+              {/* Action triggers: copy email & resume links */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <button
+                  onClick={handleCopyEmail}
+                  className={`flex items-center justify-between p-4 rounded border font-mono text-xs tracking-wider transition-all duration-300 ${
+                    isDark 
+                      ? 'bg-neon-cyan/5 border-neon-cyan/25 text-neon-cyan hover:bg-neon-cyan/10 hover:border-neon-cyan/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.2)]'
+                      : 'bg-blue-50 border-blue-200 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  <span className="font-bold">EMAIL: shreyasra7@gmail.com</span>
+                  {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                </button>
+
+                <a
+                  href="./shreyas.pdf"
+                  download
+                  className={`flex items-center justify-between p-4 rounded border font-mono text-xs tracking-wider transition-all duration-300 ${
+                    isDark 
+                      ? 'bg-neon-purple/5 border-neon-purple/25 text-neon-purple hover:bg-neon-purple/10 hover:border-neon-purple/50 hover:shadow-[0_0_15px_rgba(188,19,254,0.2)]'
+                      : 'bg-pink-50 border-pink-200 text-pink-600 hover:bg-pink-100'
+                  }`}
+                >
+                  <span className="font-bold">DOWNLOAD CREDENTIALS RESUME</span>
+                  <Download className="w-4 h-4" />
                 </a>
               </div>
 
+              {/* Secure Form payload */}
               <form onSubmit={handleSubmit} className="space-y-6 flex-grow flex flex-col">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2 relative group">
-                    <label className="font-orbitron text-xs tracking-widest text-gray-400 uppercase">Identity</label>
+                  <div className="space-y-2 relative">
+                    <label className={`font-orbitron text-[10px] tracking-widest uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                      Sender Identity Name
+                    </label>
                     <input 
                       type="text" 
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({...formState, name: e.target.value})}
-                      className={`w-full border-b-2 bg-transparent px-2 py-3 font-rajdhani focus:outline-none transition-colors ${
+                      className={`w-full border-2 rounded p-3 font-rajdhani text-sm focus:outline-none transition-colors ${
                         isDark 
-                          ? 'border-white/20 text-white focus:border-neon-cyan focus:bg-neon-cyan/5' 
-                          : 'border-gray-300 text-gray-900 focus:border-blue-500 focus:bg-blue-50'
+                          ? 'border-white/10 bg-black/40 text-white focus:border-neon-cyan focus:bg-neon-cyan/5' 
+                          : 'border-gray-200 bg-gray-50 text-gray-900 focus:border-blue-500 focus:bg-blue-50'
                       }`}
-                      placeholder="[ ENTER_NAME ]"
+                      placeholder="[ INPUT_NAME ]"
                     />
                   </div>
-                  <div className="space-y-2 relative group">
-                    <label className="font-orbitron text-xs tracking-widest text-gray-400 uppercase">Comm Array (Email)</label>
+                  <div className="space-y-2 relative">
+                    <label className={`font-orbitron text-[10px] tracking-widest uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                      Response Comm Channel (Email)
+                    </label>
                     <input 
                       type="email" 
                       required
                       value={formState.email}
                       onChange={(e) => setFormState({...formState, email: e.target.value})}
-                      className={`w-full border-b-2 bg-transparent px-2 py-3 font-rajdhani focus:outline-none transition-colors ${
+                      className={`w-full border-2 rounded p-3 font-rajdhani text-sm focus:outline-none transition-colors ${
                         isDark 
-                          ? 'border-white/20 text-white focus:border-neon-purple focus:bg-neon-purple/5' 
-                          : 'border-gray-300 text-gray-900 focus:border-pink-500 focus:bg-pink-50'
+                          ? 'border-white/10 bg-black/40 text-white focus:border-neon-purple focus:bg-neon-purple/5' 
+                          : 'border-gray-200 bg-gray-50 text-gray-900 focus:border-pink-500 focus:bg-pink-50'
                       }`}
-                      placeholder="[ ENTER_EMAIL ]"
+                      placeholder="[ INPUT_EMAIL_ADDRESS ]"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2 relative group flex-grow">
-                  <label className="font-orbitron text-xs tracking-widest text-gray-400 uppercase">Transmission Data</label>
+                <div className="space-y-2 relative flex-grow">
+                  <label className={`font-orbitron text-[10px] tracking-widest uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                    Decrypted Message Payload
+                  </label>
                   <textarea 
                     required
                     rows="5"
                     value={formState.message}
                     onChange={(e) => setFormState({...formState, message: e.target.value})}
-                    className={`w-full border-2 bg-transparent p-4 font-rajdhani focus:outline-none transition-colors resize-none h-full rounded-tl-2xl rounded-br-2xl ${
+                    className={`w-full border-2 rounded p-4 font-rajdhani text-sm focus:outline-none transition-colors resize-none h-32 ${
                       isDark 
-                        ? 'border-white/20 text-white focus:border-neon-cyan focus:bg-neon-cyan/5' 
-                        : 'border-gray-300 text-gray-900 focus:border-blue-500 focus:bg-blue-50'
+                        ? 'border-white/10 bg-black/40 text-white focus:border-neon-cyan focus:bg-neon-cyan/5' 
+                        : 'border-gray-200 bg-gray-50 text-gray-900 focus:border-blue-500 focus:bg-blue-50'
                     }`}
-                    placeholder="[ ENTER_MESSAGE_PAYLOAD ]"
+                    placeholder="[ ENTER_TRANSMISSION_PAYLOAD_HERE ]"
                   />
                 </div>
 
@@ -214,28 +262,60 @@ const Contact = () => {
                   whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.02 } : {}}
                   whileTap={{ scale: 0.98 }}
                   disabled={isSubmitting}
-                  className={`w-full relative group overflow-hidden mt-6 p-4 rounded-tl-2xl rounded-br-2xl ${
-                    isDark ? 'bg-neon-cyan/10 border-2 border-neon-cyan' : 'bg-blue-100 border-2 border-blue-600'
+                  className={`w-full relative group overflow-hidden mt-4 p-4 rounded transition-all duration-300 border-2 ${
+                    isDark 
+                      ? 'bg-neon-cyan/10 border-neon-cyan text-neon-cyan hover:shadow-[0_0_20px_rgba(0,255,255,0.3)]' 
+                      : 'bg-blue-50 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
                   }`}
                 >
-                  <div className={`absolute inset-0 w-0 transition-all duration-300 ease-out group-hover:w-full ${
+                  <div className={`absolute inset-y-0 left-0 w-0 transition-all duration-300 ease-out group-hover:w-full -z-10 ${
                     isDark ? 'bg-neon-cyan' : 'bg-blue-600'
                   }`} />
-                  <div className={`relative flex items-center justify-center gap-2 font-orbitron font-bold tracking-widest uppercase transition-colors ${
-                    isDark ? 'text-neon-cyan group-hover:text-black' : 'text-blue-600 group-hover:text-white'
+                  <div className={`relative flex items-center justify-center gap-2.5 font-orbitron font-bold tracking-widest uppercase transition-colors ${
+                    isDark ? 'group-hover:text-black' : ''
                   }`}>
                     {isSubmitting ? (
-                      'TRANSMITTING...'
+                      'TRANSMITTING_PACKETS...'
                     ) : isSuccess ? (
-                      'DATA SENT SUCCESSFULLY'
+                      'COMM_LINK SUCCESSFULLY DEPLOYED'
                     ) : (
                       <>
-                        <Send className="w-5 h-5" /> Initialize Transfer
+                        <Send className="w-4.5 h-4.5" /> Initialize System Transfer
                       </>
                     )}
                   </div>
                 </motion.button>
               </form>
+
+              {/* Footer social icons inside form container */}
+              <div className="flex items-center justify-center gap-6 mt-10 border-t border-white/5 pt-8">
+                <a 
+                  href="https://github.com/Shreyas142004" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className={`flex items-center gap-1.5 font-mono text-[10px] tracking-wider transition-colors duration-300 ${
+                    isDark ? 'text-gray-500 hover:text-white' : 'text-gray-600 hover:text-black'
+                  }`}
+                >
+                  <GithubIcon className="w-4 h-4" />
+                  <span>GITHUB</span>
+                </a>
+                
+                <span className="text-gray-800">|</span>
+                
+                <a 
+                  href="https://www.linkedin.com/in/shreyas-r-a-6a0567305" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className={`flex items-center gap-1.5 font-mono text-[10px] tracking-wider transition-colors duration-300 ${
+                    isDark ? 'text-gray-500 hover:text-neon-cyan' : 'text-gray-600 hover:text-blue-600'
+                  }`}
+                >
+                  <LinkedinIcon className="w-4 h-4" />
+                  <span>LINKEDIN</span>
+                </a>
+              </div>
+
             </div>
           </div>
         </motion.div>
