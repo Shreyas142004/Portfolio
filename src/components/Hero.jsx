@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const roles = [
   'MERN Stack Developer',
@@ -11,22 +11,13 @@ const roles = [
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const cardRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Drag physics for elastic strap
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
 
-  // Calculate the perfect pendulum angle based on drag position
-  const dragRotateZ = useTransform(() => {
-    const x = dragX.get();
-    const y = dragY.get();
-    const dx = x;
-    const dy = y + 800; // Base distance to anchor
-    const angleRad = -Math.atan2(dx, dy);
-    return angleRad * (180 / Math.PI);
-  });
-
-  // Calculate strap height and rotation dynamically based on drag distance
+  // Calculate strap height dynamically based on drag distance
   const strapHeight = useTransform(() => {
     const x = dragX.get();
     const y = dragY.get();
@@ -35,13 +26,12 @@ const Hero = () => {
     return Math.max(0, Math.sqrt(dx * dx + dy * dy));
   });
 
+  // Calculate strap rotation so it always points to the card
   const strapRotate = useTransform(() => {
     const x = dragX.get();
     const y = dragY.get();
     const dx = x;
     const dy = y + 800;
-    // In CSS, positive rotation is clockwise.
-    // atan2(dx, dy) gives the angle from the positive Y axis.
     return `${-Math.atan2(dx, dy)}rad`;
   });
 
@@ -52,114 +42,108 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
   useEffect(() => {
-    // Only track mouse for the background glow effect
-    if (!window.matchMedia("(hover: hover)").matches) return;
-
     const handlePointerMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-    
     window.addEventListener('pointermove', handlePointerMove);
     return () => window.removeEventListener('pointermove', handlePointerMove);
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+  };
+
   return (
-    <section
-      id="home"
-      className="relative flex justify-center items-center pt-24 md:pt-20 min-h-screen overflow-hidden"
-    >
+    <section id="home" className="relative flex justify-center items-center pt-24 md:pt-20 min-h-screen overflow-hidden">
       {/* Mouse Follow Glow */}
       <motion.div
-        className="top-0 left-0 z-0 fixed bg-accent/10 blur-[100px] rounded-full w-[40vw] h-[40vw] pointer-events-none"
+        className="top-0 left-0 z-0 fixed bg-accent/15 dark:bg-accent/10 blur-[120px] rounded-full w-[35vw] h-[35vw] pointer-events-none"
         animate={{
-          x: mousePosition.x - window.innerWidth * 0.2,
-          y: mousePosition.y - window.innerWidth * 0.2,
+          x: mousePosition.x - window.innerWidth * 0.175,
+          y: mousePosition.y - window.innerWidth * 0.175,
         }}
-        transition={{ type: 'tween', ease: 'backOut', duration: 0.5 }}
+        transition={{ type: 'tween', ease: 'backOut', duration: 0.6 }}
       />
 
-      {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="z-0 absolute bg-accent/40 rounded-full w-1.5 h-1.5"
-          initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-          }}
-          animate={{
-            y: [null, Math.random() * window.innerHeight],
-            opacity: [0.2, 0.8, 0.2],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
-      ))}
-
-      <div className="z-10 relative items-center gap-16 lg:gap-12 grid grid-cols-1 lg:grid-cols-2 mx-auto px-6 container">
+      <div className="relative items-center gap-16 lg:gap-12 grid grid-cols-1 lg:grid-cols-2 mx-auto px-6 container">
+        
         {/* Left Side Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="z-30 relative flex flex-col items-center lg:items-start order-2 lg:order-1 lg:pl-12 xl:pl-24 lg:text-left text-center"
-        >
-          <h2 className="mb-2 font-medium text-black/60 dark:text-white/60 text-xl md:text-2xl">
-            Hello, I'm
-          </h2>
-          <h1 className="mb-6 font-bold text-5xl md:text-7xl tracking-tight">
-            Shreyas R A
-          </h1>
+        <div className="flex flex-col items-center lg:items-start order-2 lg:order-1 lg:pl-12 xl:pl-24 lg:text-left text-center w-full">
+          
+          {/* Text Container with mix-blend-difference */}
+          <div
+            className="z-40 relative mix-blend-difference text-white w-full flex flex-col items-center lg:items-start"
+          >
+            <div className="overflow-hidden">
+              <h2 className="mb-2 font-medium text-white/50 text-sm md:text-base tracking-[0.3em] uppercase">
+                Hello, I'm
+              </h2>
+            </div>
+            
+            <div className="overflow-hidden">
+              <h1 className="mb-4 font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter">
+                Shreyas R A
+              </h1>
+            </div>
 
-          <div className="mb-8 h-12">
-            <motion.p
-              key={currentRole}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="font-semibold text-accent text-2xl md:text-3xl"
-            >
-              {roles[currentRole]}
-            </motion.p>
+            <div className="mb-8 h-12 overflow-hidden">
+              <p className="font-medium text-white/80 text-2xl md:text-3xl tracking-tight">
+                {roles[currentRole]}
+              </p>
+            </div>
+
+            <p className="mx-auto lg:mx-0 max-w-lg text-white/60 text-lg md:text-xl font-light leading-relaxed">
+              Crafting elegant, high-performance web experiences with modern architecture and minimal design.
+            </p>
           </div>
 
-          <p className="mx-auto lg:mx-0 mb-10 max-w-lg text-black/70 dark:text-white/70 text-lg leading-relaxed">
-            MCA Student • Full Stack MERN Developer
-          </p>
-
-          <div className="flex flex-wrap justify-center lg:justify-start gap-4 w-full">
-            <a
+          {/* Buttons Container (Normal blending) */}
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="z-40 relative flex flex-wrap justify-center lg:justify-start gap-6 w-full mt-12"
+          >
+            <motion.a
+              variants={itemVariants}
               href="#projects"
-              className="flex justify-center items-center bg-accent hover:opacity-90 shadow-lg px-8 py-4 rounded-full font-semibold text-white dark:text-black hover:scale-105 active:scale-95 transition-all transform"
+              className="group relative flex justify-center items-center bg-accent px-8 py-4 rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95"
             >
-              View Projects
-            </a>
-            <a
+              <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+              <span className="relative font-medium text-white dark:text-black">View Projects</span>
+            </motion.a>
+            <motion.a
+              variants={itemVariants}
               href="/Shreyas-Resume.pdf"
               download
-              className="flex justify-center items-center bg-white/5 hover:bg-black/5 dark:bg-white/10 dark:hover:bg-white/20 backdrop-blur-sm px-8 py-4 border border-black/10 dark:border-white/10 rounded-full font-semibold hover:scale-105 active:scale-95 transition-all transform"
+              className="group relative flex justify-center items-center bg-transparent backdrop-blur-md px-8 py-4 border border-black/10 dark:border-white/10 hover:border-accent dark:hover:border-accent rounded-full transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(var(--accent),0.2)]"
             >
-              Download Resume
-            </a>
-          </div>
-        </motion.div>
+              <span className="font-medium text-black dark:text-white group-hover:text-accent transition-colors duration-300">Download Resume</span>
+            </motion.a>
+          </motion.div>
+
+        </div>
 
         {/* Right Side Image (ID Card) */}
         <motion.div
-          initial={{ opacity: 0, y: -500 }}
+          initial={{ opacity: 0, y: -200 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ type: 'spring', stiffness: 120, damping: 12, mass: 1.2 }}
+          transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1 }}
           className="relative flex justify-center lg:justify-center order-1 lg:order-2 lg:pl-12 perspective-[2000px]"
         >
           {/* Interactive Card Container */}
           <div className="relative mx-auto mt-32 lg:mt-0 w-56 sm:w-64 md:w-80 perspective-[2000px]">
+            
             {/* Anchor Point: 800px above the card */}
             <div className="-top-[800px] left-1/2 z-0 absolute w-0 h-0">
               <motion.div
@@ -192,7 +176,8 @@ const Hero = () => {
                       </pattern>
                     </defs>
                     <rect width="100%" height="100%" fill="url(#lanyard-pattern)" />
-                  </svg>                </div>
+                  </svg>
+                </div>
                 {/* Metallic Clip */}
                 <div className="relative flex justify-center items-center bg-gradient-to-b from-gray-400 via-gray-200 to-gray-500 shadow-xl -mt-2 rounded-sm w-10 h-10 shrink-0">
                   <div className="-bottom-4 absolute border-2 border-gray-600 rounded-full w-5 h-6"></div>
@@ -200,34 +185,34 @@ const Hero = () => {
               </motion.div>
             </div>
 
+            {/* Draggable Card */}
             <motion.div
               ref={cardRef}
               drag
-              dragConstraints={{ top: 0, right: 0, bottom: 0, left: 0 }}
-              dragElastic={0.8}
-              dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}
+              dragSnapToOrigin={true}
+              dragElastic={0.4}
+              dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
               whileDrag={{ cursor: "grabbing" }}
-              style={{ x: dragX, y: dragY, rotateZ: dragRotateZ }}
+              style={{ x: dragX, y: dragY }}
               className="z-20 relative w-full aspect-[3/4] origin-top touch-none cursor-grab"
             >
               {/* Card Body - Luxury Black in dark, White in light */}
-              <div className="group z-10 absolute inset-0 flex flex-col items-center bg-white dark:bg-[#0a0a0a] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.4)] dark:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] px-4 pt-4 pb-8 border border-black/10 dark:border-white/20 rounded-[1.5rem] overflow-hidden">
-
+              <div className="group z-10 absolute inset-0 flex flex-col items-center bg-white dark:bg-[#0a0a0a] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.2)] dark:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] px-4 pt-4 pb-8 border border-black/10 dark:border-white/20 rounded-[1.5rem] overflow-hidden">
                 {/* Vignette Overlay */}
-                <div className="z-20 absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.1)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] group-hover:opacity-50 transition-opacity duration-300 pointer-events-none"></div>
+                <div className="z-20 absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.05)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] group-hover:opacity-50 transition-opacity duration-300 pointer-events-none"></div>
 
                 {/* ID Photo */}
-                <div className="z-10 relative flex-1 bg-black border border-white/10 rounded-[1rem] w-full h-full overflow-hidden">
+                <div className="z-10 relative flex-1 bg-black border border-black/10 dark:border-white/10 rounded-[1rem] w-full h-full overflow-hidden">
                   <img
                     src="/Profile.png"
                     alt="Shreyas R A"
-                    className="brightness-90 grayscale w-full h-full object-cover filter contrast-125"
+                    className="brightness-95 grayscale w-full h-full object-cover filter contrast-125"
                   />
                 </div>
 
-                {/* ID Details (Minimalist) */}
+                {/* ID Details */}
                 <div className="z-10 mt-6 w-full text-center pointer-events-none">
-                  <h3 className="font-medium text-black dark:text-white text-lg md:text-xl uppercase tracking-[0.2em]" style={{ fontFamily: '"Inter", "Helvetica Neue", sans-serif' }}>
+                  <h3 className="font-semibold text-black dark:text-white text-lg md:text-xl uppercase tracking-[0.2em]" style={{ fontFamily: '"Inter", "Helvetica Neue", sans-serif' }}>
                     Shreyas R A
                   </h3>
                 </div>
@@ -236,6 +221,23 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+      >
+        <span className="text-[10px] text-black/40 dark:text-white/40 uppercase tracking-[0.4em] font-medium">Scroll</span>
+        <div className="w-[1px] h-16 bg-black/10 dark:bg-white/10 relative overflow-hidden">
+          <motion.div
+            className="absolute top-0 left-0 w-full h-1/3 bg-accent"
+            animate={{ y: [0, 64, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 };
