@@ -139,10 +139,10 @@ const Hero = () => {
           initial={{ opacity: 0, y: -200 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 120, damping: 15, mass: 1 }}
-          className="relative flex justify-center lg:justify-center order-1 lg:order-2 lg:pl-12 perspective-[2000px]"
+          className="relative flex justify-center lg:justify-center order-1 lg:order-2 lg:pl-12"
         >
           {/* Interactive Card Container */}
-          <div className="relative mx-auto mt-32 lg:mt-0 w-56 sm:w-64 md:w-80 perspective-[2000px]">
+          <div className="relative mx-auto mt-32 lg:mt-0 w-56 sm:w-64 md:w-80">
             
             {/* Anchor Point: 800px above the card */}
             <div className="-top-[800px] left-1/2 z-0 absolute w-0 h-0">
@@ -155,7 +155,7 @@ const Hero = () => {
                 }}
               >
                 {/* Lanyard Fabric */}
-                <div className="relative flex-1 bg-gradient-to-b from-[#111] dark:from-[#050505] to-[#222] dark:to-[#111] shadow-[inset_0_0_10px_rgba(0,0,0,0.5)] w-8 overflow-hidden">
+                <div className="relative flex-1 bg-linear-to-b from-[#111] dark:from-[#050505] to-[#222] dark:to-[#111] shadow-[inset_0_0_10px_rgba(0,0,0,0.5)] w-8 overflow-hidden">
                   <svg viewBox="0 0 32 760" preserveAspectRatio="none" className="absolute inset-0 opacity-60 dark:opacity-40 w-full h-full">
                     <defs>
                       <pattern id="lanyard-pattern" patternUnits="userSpaceOnUse" width="32" height="64">
@@ -179,7 +179,7 @@ const Hero = () => {
                   </svg>
                 </div>
                 {/* Metallic Clip */}
-                <div className="relative flex justify-center items-center bg-gradient-to-b from-gray-400 via-gray-200 to-gray-500 shadow-xl -mt-2 rounded-sm w-10 h-10 shrink-0">
+                <div className="relative flex justify-center items-center bg-linear-to-b from-gray-400 via-gray-200 to-gray-500 shadow-xl -mt-2 rounded-sm w-10 h-10 shrink-0">
                   <div className="-bottom-4 absolute border-2 border-gray-600 rounded-full w-5 h-6"></div>
                 </div>
               </motion.div>
@@ -194,15 +194,15 @@ const Hero = () => {
               dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
               whileDrag={{ cursor: "grabbing" }}
               style={{ x: dragX, y: dragY }}
-              className="z-20 relative w-full aspect-[3/4] origin-top touch-none cursor-grab"
+              className="z-20 relative w-full aspect-[3/4] origin-top touch-none cursor-grab rounded-[1.5rem] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.25)] dark:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.85)]"
             >
               {/* Card Body - Luxury Black in dark, White in light */}
-              <div className="group z-10 absolute inset-0 flex flex-col items-center bg-white dark:bg-[#0a0a0a] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.2)] dark:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] px-4 pt-4 pb-8 border border-black/10 dark:border-white/20 rounded-[1.5rem] overflow-hidden">
+              <div className="group z-10 absolute inset-0 flex flex-col items-center bg-white dark:bg-[#0a0a0a] px-4 pt-4 pb-8 border border-black/10 dark:border-white/20 rounded-[1.5rem] overflow-hidden">
                 {/* Vignette Overlay */}
                 <div className="z-20 absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.05)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] group-hover:opacity-50 transition-opacity duration-300 pointer-events-none"></div>
 
                 {/* ID Photo */}
-                <div className="z-10 relative flex-1 bg-black border border-black/10 dark:border-white/10 rounded-[1rem] w-full h-full overflow-hidden">
+                <div className="z-10 relative flex-1 bg-black border border-black/10 dark:border-white/10 rounded-2xl w-full h-full overflow-hidden">
                   <img
                     src="/Profile.png"
                     alt="Shreyas R A"
@@ -230,7 +230,7 @@ const Hero = () => {
         className="absolute bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
       >
         <span className="text-[10px] text-black/40 dark:text-white/40 uppercase tracking-[0.4em] font-medium">Scroll</span>
-        <div className="w-[1px] h-16 bg-black/10 dark:bg-white/10 relative overflow-hidden">
+        <div className="w-px h-16 bg-black/10 dark:bg-white/10 relative overflow-hidden">
           <motion.div
             className="absolute top-0 left-0 w-full h-1/3 bg-accent"
             animate={{ y: [0, 64, 0] }}

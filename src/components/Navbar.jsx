@@ -87,7 +87,7 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <div className="bg-black/10 dark:bg-white/10 mx-2 w-[1px] h-6"></div>
+            <div className="bg-black/10 dark:bg-white/10 mx-2 w-px h-6"></div>
             <ThemeToggle />
           </div>
         </div>

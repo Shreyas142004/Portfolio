@@ -27,9 +27,9 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="lg:col-span-5 relative group perspective-[1000px]"
+            className="lg:col-span-5 relative group"
           >
-            <div className="relative w-full aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[2rem] overflow-hidden transition-transform duration-700 ease-out group-hover:rotate-y-[5deg] group-hover:rotate-x-[5deg]">
+            <div className="relative w-full aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl transition-all duration-700 ease-out group-hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.25)] dark:group-hover:shadow-[0_30px_70px_-15px_rgba(0,0,0,0.85)]">
               <div className="absolute inset-0 bg-accent/20 mix-blend-overlay z-10 transition-opacity duration-500 group-hover:opacity-0 pointer-events-none" />
               <img 
                 src="/Profile.png" 

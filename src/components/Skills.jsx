@@ -59,15 +59,15 @@ const Skills = () => {
           <div className="h-[1px] flex-1 bg-gradient-to-r from-black/10 dark:from-white/10 to-transparent"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-[1000px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillsData.map((category, idx) => (
             <motion.div
               key={category.category}
-              initial={{ opacity: 0, y: 30, rotateX: 10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: idx * 0.1, ease: 'easeOut' }}
-              whileHover={{ y: -8, rotateX: 2, rotateY: -2, scale: 1.02 }}
+              whileHover={{ y: -8, scale: 1.02 }}
               className="group relative bg-white/5 dark:bg-white/5 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-[2rem] p-8 transition-all duration-500 hover:border-accent/40 shadow-lg hover:shadow-[0_20px_40px_-15px_rgba(var(--accent),0.3)]"
             >
               {/* Internal Glow Effect */}
