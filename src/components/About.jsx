@@ -125,7 +125,7 @@ const About = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className={`p-8 md:p-10 rounded-2xl flex flex-col h-full border ${
+              className={`p-5 sm:p-8 md:p-10 rounded-2xl flex flex-col h-full border ${
                 isDark ? 'glass-panel border-white/10 box-glow shadow-[0_0_20px_rgba(0,255,255,0.02)]' : 'bg-white shadow-lg border-gray-200'
               }`}
               style={{
@@ -137,12 +137,12 @@ const About = () => {
               
               <div className="flex items-center gap-2 mb-6 border-b border-white/10 pb-4">
                 <Info className={`w-5 h-5 ${isDark ? 'text-neon-cyan animate-pulse' : 'text-blue-600'}`} />
-                <h4 className={`text-xl font-orbitron font-bold tracking-widest ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                <h4 className={`text-sm sm:text-base md:text-xl font-orbitron font-bold tracking-wider sm:tracking-widest ${isDark ? 'text-white text-glow-cyan' : 'text-gray-900'}`}>
                   OPERATOR_LOG_PAYLOAD
                 </h4>
               </div>
 
-              <div className="space-y-6 flex-grow font-rajdhani text-base md:text-lg leading-relaxed">
+              <div className="space-y-6 flex-grow font-rajdhani text-base md:text-lg leading-relaxed text-justify">
                 <p className={isDark ? 'text-gray-300' : 'text-gray-700'}>
                   I am a passionate and dedicated <span className={`font-bold ${isDark ? 'text-neon-cyan' : 'text-blue-600'}`}>MERN Full Stack Developer</span> based in <span className={isDark ? "text-neon-cyan text-glow-cyan" : "text-blue-600 font-bold"}>Mangalore</span>, focused on building high-performance, responsive, and visually stunning web systems. I specialize in turning complex designs into sleek, interactive user interfaces that provide immersive user experiences while ensuring robust backend architecture.
                 </p>
@@ -152,7 +152,7 @@ const About = () => {
               </div>
               
               {/* Resume Trigger Controls */}
-              <div className="flex items-center gap-4 mt-8 pt-6 border-t border-white/10">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-8 pt-6 border-t border-white/10">
                 <a 
                   href="./shreyas.pdf" 
                   download
@@ -170,14 +170,14 @@ const About = () => {
                   href="./shreyas.pdf" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  title="Preview Resume"
-                  className={`inline-flex items-center justify-center w-12 h-12 rounded border transition-all duration-300 hover:scale-[1.05] ${
+                  className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded border font-orbitron text-xs sm:text-sm font-bold tracking-widest transition-all duration-300 hover:scale-[1.03] ${
                     isDark 
                       ? 'bg-neon-purple/10 border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-white hover:shadow-[0_0_20px_rgba(188,19,254,0.4)]' 
                       : 'bg-white border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white'
                   }`}
                 >
-                  <Eye className="w-5 h-5"/>
+                  <Eye className="w-4 h-4"/>
+                  <span>VIEW RESUME</span>
                 </a>
               </div>
             </motion.div>
