@@ -1,23 +1,11 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { BookOpen, GraduationCap, Briefcase, Award, Calendar, Activity } from 'lucide-react';
+import { BookOpen, GraduationCap, Award, Calendar, Activity } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
 const chronologyData = [
   {
     id: 1,
-    type: 'work',
-    role: 'Senior 3D Frontend Engineer',
-    institution: 'Cyberdyne Systems',
-    period: '2077 - Present',
-    score: null,
-    status: 'SYSTEM ENGAGED',
-    description: 'Lead developer for holographic interfaces and WebGL-based neural dashboard monitoring systems.',
-    icon: <Briefcase className="w-5 h-5" />,
-    color: 'cyan'
-  },
-  {
-    id: 2,
     type: 'education',
     role: 'Master of Computer Applications (MCA)',
     institution: 'VTU Affiliated Institution',
@@ -29,22 +17,10 @@ const chronologyData = [
     color: 'purple'
   },
   {
-    id: 3,
-    type: 'work',
-    role: 'UI/UX Developer',
-    institution: 'Neon Corp',
-    period: '2074 - 2077',
-    score: null,
-    status: 'MISSION COMPLETED',
-    description: 'Designed and implemented high-performance trading terminals with real-time WebGL data visualization.',
-    icon: <Briefcase className="w-5 h-5" />,
-    color: 'cyan'
-  },
-  {
-    id: 4,
+    id: 2,
     type: 'education',
     role: 'Bachelor of Computer Applications (BCA)',
-    institution: 'Bangalore University',
+    institution: 'Mangalore University',
     period: '2022 - 2025',
     score: '7.6 CGPA',
     status: 'MISSION COMPLETED 2025',
@@ -53,7 +29,7 @@ const chronologyData = [
     color: 'purple'
   },
   {
-    id: 5,
+    id: 3,
     type: 'education',
     role: 'Pre-University Course (PUC)',
     institution: 'State Pre-University Board',
@@ -65,7 +41,7 @@ const chronologyData = [
     color: 'purple'
   },
   {
-    id: 6,
+    id: 4,
     type: 'education',
     role: 'Secondary School Leaving Certificate (SSLC)',
     institution: 'State Education Board',

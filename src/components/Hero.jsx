@@ -142,6 +142,7 @@ const Hero = () => {
   const [bootComplete, setBootComplete] = useState(false);
   const [isEntering, setIsEntering] = useState(false);
   const [taglineText, setTaglineText] = useState("");
+  const [cameraZ, setCameraZ] = useState(5.2);
   const navigate = useNavigate();
   const { theme } = useTheme();
   
@@ -175,6 +176,24 @@ const Hero = () => {
   // Typing effect logic for Dev role description
   const fullDescriptionText = "MERN Full Stack Developer & 3D Web Engineer crafting highly interactive, premium user interfaces.";
   
+  // Responsive camera adjustment hook
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setCameraZ(7.8); // Push hologram back on mobile
+      } else if (window.innerWidth < 1024) {
+        setCameraZ(6.5); // Push hologram back on tablet
+      } else if (window.innerWidth < 1440) {
+        setCameraZ(5.8); // Intermediate desktop distance
+      } else {
+        setCameraZ(5.2); // Normal desktop
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     if (!bootComplete) return;
     let i = 0;
@@ -235,7 +254,7 @@ const Hero = () => {
 
         {/* Three.js interactive hologram visual */}
         <div className="absolute inset-0 z-0 opacity-60 md:opacity-100">
-          <Canvas camera={{ position: [0, 0, isEntering ? 2 : 5.2], fov: 45 }}>
+          <Canvas camera={{ position: [0, 0, isEntering ? 2 : cameraZ], fov: 45 }}>
             <ambientLight intensity={isDark ? 0.6 : 1.2} />
             <directionalLight position={[10, 10, 10]} intensity={1.5} />
             <pointLight position={[-10, -10, -10]} intensity={0.5} color={isDark ? "#00f3ff" : "#2563eb"} />
@@ -259,9 +278,9 @@ const Hero = () => {
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className={`hidden lg:flex flex-col gap-4 absolute left-8 top-1/4 p-5 rounded-r-xl border-l-4 ${
+            className={`hidden xl:flex flex-col gap-4 absolute left-4 xl:left-8 top-[28%] xl:top-1/4 p-5 rounded-r-xl border-l-4 ${
               isDark ? 'bg-black/65 border-neon-cyan glass-panel shadow-[0_0_15px_rgba(0,255,255,0.05)]' : 'bg-white/85 border-blue-600 shadow-md'
-            } z-20 w-64`}
+            } z-20 w-56 xl:w-64`}
           >
             <div className="flex items-center gap-2 pb-2 border-b border-white/10">
               <Cpu className={`w-4 h-4 ${isDark ? 'text-neon-cyan animate-pulse' : 'text-blue-600'}`} />
@@ -303,9 +322,9 @@ const Hero = () => {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
-            className={`hidden lg:flex flex-col gap-4 absolute right-8 top-1/4 p-5 rounded-l-xl border-r-4 ${
+            className={`hidden xl:flex flex-col gap-4 absolute right-4 xl:right-8 top-[28%] xl:top-1/4 p-5 rounded-l-xl border-r-4 ${
               isDark ? 'bg-black/65 border-neon-purple glass-panel shadow-[0_0_15px_rgba(188,19,254,0.05)]' : 'bg-white/85 border-pink-600 shadow-md'
-            } z-20 w-64`}
+            } z-20 w-56 xl:w-64`}
           >
             <div className="flex items-center gap-2 pb-2 border-b border-white/10">
               <ShieldCheck className={`w-4 h-4 ${isDark ? 'text-neon-purple' : 'text-pink-600'}`} />
@@ -334,7 +353,7 @@ const Hero = () => {
 
         {/* Center content Dashboard */}
         {bootComplete && (
-          <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 pointer-events-none w-full max-w-4xl">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 pointer-events-none w-full max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -342,7 +361,7 @@ const Hero = () => {
               style={{
                 clipPath: 'polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 25px 100%, 0 calc(100% - 25px))'
               }}
-              className={`p-8 md:p-12 transition-all duration-300 w-full relative ${
+              className={`p-6 sm:p-10 md:p-12 transition-all duration-300 w-full relative ${
                 isDark 
                   ? 'glass-panel box-glow shadow-[0_0_40px_rgba(0,255,255,0.05)] border-neon-cyan/25' 
                   : 'bg-white/85 backdrop-blur-md border border-gray-200 shadow-2xl'
@@ -367,7 +386,7 @@ const Hero = () => {
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.6, type: "spring" }}
-                className={`text-4xl sm:text-5xl md:text-7xl font-bold font-orbitron mb-6 uppercase tracking-wider ${
+                className={`text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold font-orbitron mb-6 uppercase tracking-wider ${
                   isDark ? 'text-white text-glow-cyan' : 'text-gray-900'
                 }`}
               >
@@ -375,8 +394,8 @@ const Hero = () => {
               </motion.h1>
 
               {/* Tagline using typing state */}
-              <div className="min-h-[48px] sm:min-h-[32px] mb-8">
-                <p className={`font-rajdhani text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <div className="min-h-[64px] sm:min-h-[48px] md:min-h-[32px] mb-8">
+                <p className={`font-rajdhani text-base sm:text-lg md:text-xl xl:text-2xl max-w-2xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                   {taglineText}
                   <span className={`inline-block w-1.5 h-4 ml-1 ${isDark ? 'bg-neon-cyan' : 'bg-blue-600'} animate-pulse`} />
                 </p>
@@ -394,7 +413,7 @@ const Hero = () => {
                 transition={{ duration: 0.5, delay: 1 }}
                 onClick={handleEnterSystem}
                 disabled={isEntering}
-                className={`px-8 py-4 font-orbitron font-bold tracking-[0.2em] rounded-sm uppercase transition-all duration-300 relative overflow-hidden group ${
+                className={`px-6 py-3 sm:px-8 sm:py-4 font-orbitron text-xs sm:text-sm font-bold tracking-[0.2em] rounded-sm uppercase transition-all duration-300 relative overflow-hidden group ${
                   isEntering 
                     ? isDark ? 'bg-neon-purple text-white border-neon-purple shadow-[0_0_15px_#bc13fe]' : 'bg-pink-600 text-white border-pink-600'
                     : isDark 

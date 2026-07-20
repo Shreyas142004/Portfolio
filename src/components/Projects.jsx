@@ -130,8 +130,8 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 220, damping: 25 });
-  const mouseYSpring = useSpring(y, { stiffness: 220, damping: 25 });
+  const mouseXSpring = useSpring(x, { stiffness: 450, damping: 28 });
+  const mouseYSpring = useSpring(y, { stiffness: 450, damping: 28 });
 
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
@@ -174,13 +174,13 @@ const ProjectCard = ({ project, index, isDark, onClick }) => {
         onMouseLeave={handleMouseLeave}
         whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.02 } : {}}
         transition={{ type: "spring", stiffness: 220, damping: 25 }}
-        style={window.innerWidth >= 1024 ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}}
         className={`rounded-xl overflow-hidden relative border flex flex-col h-full ${
           isDark
             ? "glass-panel border-white/10 group-hover:border-neon-cyan/50 hover:shadow-[0_0_20px_rgba(0,255,255,0.05)]"
             : "bg-white shadow-lg border-gray-200 group-hover:border-blue-500"
         }`}
         style={{
+          ...(window.innerWidth >= 1024 ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}),
           clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)'
         }}
       >

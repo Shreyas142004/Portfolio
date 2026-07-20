@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { motion, useSpring, useTransform, useMotionValue, useMotionTemplate, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Award, Eye, Download, X, ShieldCheck, Cpu } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
@@ -43,47 +43,8 @@ const certificatesData = [
 ];
 
 const CertificateCard = ({ cert, index, isDark, onPreview }) => {
-  const cardRef = useRef(null);
-  
-  // Hover glow effect values
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // 3D Tilt values
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  
-  const mouseXSpring = useSpring(x, { stiffness: 220, damping: 25 });
-  const mouseYSpring = useSpring(y, { stiffness: 220, damping: 25 });
-  
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  function handleMouseMove(e) {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-    
-    if (window.innerWidth >= 1024) {
-      const width = rect.width;
-      const height = rect.height;
-      const mouseXNorm = (e.clientX - rect.left) / width - 0.5;
-      const mouseYNorm = (e.clientY - rect.top) / height - 0.5;
-      x.set(mouseXNorm);
-      y.set(mouseYNorm);
-    }
-  }
-
-  function handleMouseLeave() {
-    x.set(0);
-    y.set(0);
-  }
-
   return (
     <motion.div
-      ref={cardRef}
       initial={{ opacity: 0, y: 35 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -92,11 +53,8 @@ const CertificateCard = ({ cert, index, isDark, onPreview }) => {
       style={{ perspective: 1000 }}
     >
       <motion.div
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        whileHover={window.matchMedia("(hover: hover)").matches ? { scale: 1.02 } : {}}
-        transition={{ type: "spring", stiffness: 220, damping: 25 }}
-        style={window.innerWidth >= 1024 ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}}
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 400, damping: 28 }}
         className={`group p-8 rounded-xl flex flex-col h-full border backdrop-blur-sm transition-all duration-300 relative overflow-hidden ${
           isDark 
             ? 'bg-black/60 border-white/10 hover:border-neon-cyan hover:shadow-[0_0_25px_rgba(0,255,255,0.08)]' 
@@ -106,24 +64,10 @@ const CertificateCard = ({ cert, index, isDark, onPreview }) => {
           clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)'
         }}
       >
-        {/* Glow effect on hover */}
-        <motion.div
-          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-0"
-          style={{
-            background: useMotionTemplate`
-              radial-gradient(
-                350px circle at ${mouseX}px ${mouseY}px,
-                ${isDark ? 'rgba(0, 255, 255, 0.12)' : 'rgba(37, 99, 235, 0.08)'},
-                transparent 85%
-              )
-            `,
-          }}
-        />
-
         {/* Small Corner Decor Tag */}
         <div className={`absolute top-0 right-0 w-1.5 h-1.5 border-t border-r ${isDark ? 'border-neon-cyan/40' : 'border-blue-200'}`} />
 
-        <div className="relative z-10 flex flex-col h-full lg:[transform:translateZ(25px)]">
+        <div className="relative z-10 flex flex-col h-full">
           {/* Header Row */}
           <div className="mb-6 flex justify-between items-center">
             <div className={`p-3 rounded-lg border ${

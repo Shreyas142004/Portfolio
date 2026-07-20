@@ -5,10 +5,24 @@ import { useTheme } from './ThemeContext';
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [hasHover, setHasHover] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    }
+    return false;
+  });
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+    const handleMediaQueryChange = (e) => {
+      setHasHover(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleMediaQueryChange);
+
     const updateMousePosition = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -24,14 +38,19 @@ const CustomCursor = () => {
       }
     };
 
-    window.addEventListener('mousemove', updateMousePosition);
-    window.addEventListener('mouseover', handleMouseOver);
+    if (mediaQuery.matches) {
+      window.addEventListener('mousemove', updateMousePosition);
+      window.addEventListener('mouseover', handleMouseOver);
+    }
 
     return () => {
+      mediaQuery.removeEventListener('change', handleMediaQueryChange);
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, []);
+
+  if (!hasHover) return null;
 
   const innerColor = isDark ? '#00ffff' : '#2563eb';
   const outerColor = isDark ? '#bc13fe' : '#db2777';
