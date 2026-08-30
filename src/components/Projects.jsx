@@ -94,7 +94,7 @@ const projectsData = [
       "MongoDB",
       "Tailwind CSS",
     ],
-    link: "https://github.com/Shreyas142004/Smart-Parking-Portal.git",
+    link: "https://smart-parking-portal.vercel.app/",
     github: "https://github.com/Shreyas142004/Smart-Parking-Portal.git",
   },
   {
