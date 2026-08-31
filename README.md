@@ -71,7 +71,7 @@ Ensure you have **Node.js** (v18.0 or higher) installed on your system.
 3. **Configure Environment Variables**:
    Set up your Web3Forms access key in the `.env` file:
    ```env
-   VITE_WEB3FORMS_ACCESS_KEY=27324548-04fc-4366-9e94-405ce17207f1
+   VITE_WEB3FORMS_ACCESS_KEY=YOUR_WEB3FORMS_ACCESS_KEY_HERE
    ```
 
 4. **Start local development server**:
