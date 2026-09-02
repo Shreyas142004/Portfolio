@@ -147,8 +147,8 @@ const Footer = () => {
               </a>
 
               <a 
-                href="./shreyas.pdf"
-                download
+                href="./Shreyas.pdf"
+                download="Shreyas_Resume.pdf"
                 title="Resume Decrypt File"
                 className={`w-9 h-9 rounded flex items-center justify-center border transition-all duration-300 ${
                   isDark 

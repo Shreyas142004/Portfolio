@@ -1,8 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import CustomCursor from './CustomCursor';
-import Background from './Background';
 import { useTheme } from './ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
@@ -14,12 +12,9 @@ const Layout = () => {
   return (
     <div className={`min-h-screen transition-colors duration-500 relative z-0 ${
       theme === 'dark' 
-        ? 'bg-[#050505] text-white selection:bg-neon-purple selection:text-white' 
-        : 'bg-gray-50 text-gray-900 selection:bg-neon-cyan selection:text-black'
+        ? 'bg-transparent text-white selection:bg-neon-purple selection:text-white' 
+        : 'bg-transparent text-gray-900 selection:bg-neon-cyan selection:text-black'
     }`}>
-      <Background />
-      <CustomCursor />
-      {/* Hide navbar on home/hero page if desired, but for this let's keep it or we can conditional render */}
       {location.pathname !== '/' && <Navbar />}
       
       <main className={`relative z-10 ${location.pathname !== '/' ? 'pt-24' : ''}`}>

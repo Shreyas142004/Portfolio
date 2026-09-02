@@ -6,7 +6,6 @@ import Projects from './Projects';
 import Certificates from './Certificates';
 import Contact from './Contact';
 import Footer from './Footer';
-import Background from './Background';
 import { useTheme } from './ThemeContext';
 
 const MainPage = () => {
@@ -15,10 +14,9 @@ const MainPage = () => {
   return (
     <div className={`min-h-screen w-full max-w-[100vw] overflow-x-hidden transition-colors duration-500 relative z-0 ${
       theme === 'dark' 
-        ? 'bg-[#050505] text-white selection:bg-neon-purple selection:text-white' 
-        : 'bg-gray-50 text-gray-900 selection:bg-neon-cyan selection:text-black'
+        ? 'bg-transparent text-white selection:bg-neon-purple selection:text-white' 
+        : 'bg-transparent text-gray-900 selection:bg-neon-cyan selection:text-black'
     }`}>
-      <Background />
       <Navbar />
       
       <main className="relative z-10 pt-24">

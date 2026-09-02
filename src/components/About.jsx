@@ -1,14 +1,27 @@
-import { motion } from 'framer-motion';
-import { Download, Eye, ShieldCheck, Terminal, Globe, User, GraduationCap, Briefcase, Info } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Download, Eye, ShieldCheck, Terminal, Globe, User, GraduationCap, Briefcase, Info, X, ExternalLink } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
 const About = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const [showResumeModal, setShowResumeModal] = useState(false);
+
+  useEffect(() => {
+    if (showResumeModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showResumeModal]);
 
   const profileData = [
     { label: 'NAME', value: 'SHREYAS R A', icon: User, color: 'cyan' },
-    { label: 'ROLE', value: 'MERN Full Stack Developer & 3D Web Engineer', icon: Terminal, color: 'purple' },
+    { label: 'ROLE', value: 'MERN Full Stack Developer', icon: Terminal, color: 'purple' },
     { label: 'EDUCATION', value: 'BCA (Graduated 2025) / MCA (In Progress)', icon: GraduationCap, color: 'cyan' },
     { label: 'LOCATION', value: 'Mangalore, India', icon: Globe, color: 'purple' },
     { label: 'EXPERIENCE', value: 'Software Applications & Systems Developer', icon: Briefcase, color: 'cyan' },
@@ -154,8 +167,8 @@ const About = () => {
               {/* Resume Trigger Controls */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-8 pt-6 border-t border-white/10">
                 <a 
-                  href="./shreyas.pdf" 
-                  download
+                  href="./Shreyas.pdf" 
+                  download="Shreyas_Resume.pdf"
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded font-orbitron text-xs sm:text-sm font-bold tracking-widest transition-all duration-300 hover:scale-[1.03] ${
                     isDark 
                       ? 'bg-neon-cyan/10 border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-black hover:shadow-[0_0_20px_rgba(0,255,255,0.4)]' 
@@ -166,10 +179,8 @@ const About = () => {
                   <span>DOWNLOAD RESUME</span>
                 </a>
                 
-                <a 
-                  href="./shreyas.pdf" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={() => setShowResumeModal(true)}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded border font-orbitron text-xs sm:text-sm font-bold tracking-widest transition-all duration-300 hover:scale-[1.03] ${
                     isDark 
                       ? 'bg-neon-purple/10 border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-white hover:shadow-[0_0_20px_rgba(188,19,254,0.4)]' 
@@ -178,13 +189,85 @@ const About = () => {
                 >
                   <Eye className="w-4 h-4"/>
                   <span>VIEW RESUME</span>
-                </a>
+                </button>
               </div>
             </motion.div>
           </div>
           
         </div>
       </div>
+
+      {/* Resume Preview Modal */}
+      <AnimatePresence>
+        {showResumeModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={`fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 backdrop-blur-md ${isDark ? 'bg-black/80' : 'bg-gray-900/60'}`}
+            onClick={() => setShowResumeModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.93, y: 40 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.93, y: 40 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`w-full max-w-4xl h-[88vh] sm:h-[85vh] rounded-xl overflow-hidden relative border flex flex-col ${
+                isDark ? 'bg-[#08080f] border-neon-cyan/40 box-glow shadow-[0_0_35px_rgba(0,255,255,0.1)]' : 'bg-white border-gray-200 shadow-2xl'
+              }`}
+            >
+              {/* Header inside modal */}
+              <div className={`p-3 sm:p-4 border-b flex items-center justify-between font-mono text-[11px] sm:text-xs tracking-widest ${
+                isDark ? "bg-[#0c0c16] border-white/10 text-neon-cyan" : "bg-gray-50 border-gray-200 text-blue-600"
+              }`}>
+                <div className="flex items-center gap-2 truncate pr-2">
+                  <ShieldCheck className="w-4 h-4 flex-shrink-0" /> 
+                  <span className="truncate">RESUME.VIEWPORT // SHREYAS R A</span>
+                </div>
+
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <a 
+                    href="./Shreyas.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold border transition-colors ${
+                      isDark 
+                        ? 'bg-neon-cyan/10 border-neon-cyan/40 text-neon-cyan hover:bg-neon-cyan hover:text-black' 
+                        : 'bg-blue-50 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white'
+                    }`}
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    <span>FULL TAB</span>
+                  </a>
+                  <button 
+                    onClick={() => setShowResumeModal(false)}
+                    className={`p-1.5 rounded border transition-colors ${
+                      isDark ? 'bg-white/10 border-white/10 text-white hover:text-neon-cyan' : 'bg-gray-100 border-gray-300 text-gray-800'
+                    }`}
+                    aria-label="Close modal"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+              
+              <div className="w-full h-full p-2 bg-black/90 relative overflow-hidden">
+                <object 
+                  data="./Shreyas.pdf#toolbar=0" 
+                  type="application/pdf"
+                  className="w-full h-full rounded border-none"
+                >
+                  <iframe 
+                    src="./Shreyas.pdf#toolbar=0" 
+                    className="w-full h-full rounded border-none"
+                    title="Resume Preview"
+                  />
+                </object>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

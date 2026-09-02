@@ -188,8 +188,8 @@ const Contact = () => {
                 </button>
 
                 <a
-                  href="./shreyas.pdf"
-                  download
+                  href="./Shreyas.pdf"
+                  download="Shreyas_Resume.pdf"
                   className={`flex items-center justify-between p-4 rounded border font-mono text-xs tracking-wider transition-all duration-300 ${
                     isDark 
                       ? 'bg-neon-purple/5 border-neon-purple/25 text-neon-purple hover:bg-neon-purple/10 hover:border-neon-purple/50 hover:shadow-[0_0_15px_rgba(188,19,254,0.2)]'

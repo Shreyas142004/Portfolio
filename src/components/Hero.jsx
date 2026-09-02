@@ -1,84 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars, Float, MeshDistortMaterial } from '@react-three/drei';
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
 import { Terminal, Cpu, Activity, ShieldCheck, ArrowDown, Database, Layers } from 'lucide-react';
-
-// Sub-component for the 3D rotating visual cyber object
-const CyberObject = ({ isEntering, theme }) => {
-  const meshRef = useRef();
-  const ringRef1 = useRef();
-  const ringRef2 = useRef();
-  
-  const mainColor = theme === 'dark' ? '#00ffff' : '#2563eb';
-  const coreColor = theme === 'dark' ? '#bc13fe' : '#db2777';
-
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-    const speedMultiplier = isEntering ? 15 : 1;
-    
-    // Core rotation
-    if (meshRef.current) {
-      meshRef.current.rotation.x = (Math.cos(t / 4) / 2) * speedMultiplier;
-      meshRef.current.rotation.y = (Math.sin(t / 4) / 2) * speedMultiplier;
-      meshRef.current.rotation.z = (Math.sin(t / 1.5) / 2) * speedMultiplier;
-      
-      if (isEntering) {
-        meshRef.current.scale.x = 1.5 + Math.sin(t * 20) * 0.2;
-        meshRef.current.scale.y = 1.5 + Math.cos(t * 20) * 0.2;
-        meshRef.current.scale.z = 1.5 + Math.sin(t * 20) * 0.2;
-      }
-    }
-
-    // Holographic Orbit Rings rotation
-    if (ringRef1.current) {
-      ringRef1.current.rotation.x = t * 0.5 * speedMultiplier;
-      ringRef1.current.rotation.y = t * 0.3 * speedMultiplier;
-    }
-    if (ringRef2.current) {
-      ringRef2.current.rotation.y = -t * 0.6 * speedMultiplier;
-      ringRef2.current.rotation.z = t * 0.2 * speedMultiplier;
-    }
-  });
-
-  return (
-    <Float speed={isEntering ? 10 : 2} rotationIntensity={isEntering ? 5 : 1} floatIntensity={isEntering ? 5 : 2}>
-      {/* Centered distorted icosahedron */}
-      <mesh ref={meshRef} scale={1.5}>
-        <icosahedronGeometry args={[1, isEntering ? 0 : 1]} />
-        <MeshDistortMaterial
-          color={mainColor}
-          attach="material"
-          distort={isEntering ? 0.8 : 0.35}
-          speed={isEntering ? 10 : 2}
-          roughness={0.2}
-          metalness={0.9}
-          wireframe
-        />
-      </mesh>
-      
-      {/* Central Solid Glow Sphere */}
-      <mesh scale={0.7}>
-         <sphereGeometry args={[1, 32, 32]} />
-         <meshStandardMaterial color={coreColor} emissive={coreColor} emissiveIntensity={isEntering ? 6 : 2.5} toneMapped={false} />
-      </mesh>
-
-      {/* Holographic Ring 1 */}
-      <mesh ref={ringRef1} scale={2.2}>
-        <torusGeometry args={[1, 0.02, 16, 100]} />
-        <meshStandardMaterial color={mainColor} emissive={mainColor} emissiveIntensity={2} toneMapped={false} wireframe />
-      </mesh>
-
-      {/* Holographic Ring 2 */}
-      <mesh ref={ringRef2} scale={2.5}>
-        <torusGeometry args={[1, 0.015, 8, 80]} />
-        <meshStandardMaterial color={coreColor} emissive={coreColor} emissiveIntensity={2} toneMapped={false} wireframe />
-      </mesh>
-    </Float>
-  );
-};
 
 const bootLogs = [
   { text: ">> INITIATING SYSTEM OVERWRITE BOOT PROTOCOL...", delay: 200 },
@@ -142,7 +66,6 @@ const Hero = () => {
   const [bootComplete, setBootComplete] = useState(false);
   const [isEntering, setIsEntering] = useState(false);
   const [taglineText, setTaglineText] = useState("");
-  const [cameraZ, setCameraZ] = useState(5.2);
   const navigate = useNavigate();
   const { theme } = useTheme();
   
@@ -174,25 +97,7 @@ const Hero = () => {
   };
 
   // Typing effect logic for Dev role description
-  const fullDescriptionText = "MERN Full Stack Developer & 3D Web Engineer crafting highly interactive, premium user interfaces.";
-  
-  // Responsive camera adjustment hook
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setCameraZ(7.8); // Push hologram back on mobile
-      } else if (window.innerWidth < 1024) {
-        setCameraZ(6.5); // Push hologram back on tablet
-      } else if (window.innerWidth < 1440) {
-        setCameraZ(5.8); // Intermediate desktop distance
-      } else {
-        setCameraZ(5.2); // Normal desktop
-      }
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const fullDescriptionText = "MERN Full Stack Developer building highly interactive, premium user interfaces.";
 
   useEffect(() => {
     if (!bootComplete) return;
@@ -249,28 +154,7 @@ const Hero = () => {
           )}
         </AnimatePresence>
 
-        {/* Laser line sweeping screen vertically */}
-        <div className="scan-laser" />
-
-        {/* Three.js interactive hologram visual */}
-        <div className="absolute inset-0 z-0 opacity-60 md:opacity-100">
-          <Canvas camera={{ position: [0, 0, isEntering ? 2 : cameraZ], fov: 45 }}>
-            <ambientLight intensity={isDark ? 0.6 : 1.2} />
-            <directionalLight position={[10, 10, 10]} intensity={1.5} />
-            <pointLight position={[-10, -10, -10]} intensity={0.5} color={isDark ? "#00f3ff" : "#2563eb"} />
-            <Stars 
-              radius={110} 
-              depth={60} 
-              count={isEntering ? 8000 : 2500} 
-              factor={isEntering ? 12 : 5} 
-              saturation={0.5} 
-              fade 
-              speed={isEntering ? 24 : 1.2} 
-              color={isDark ? "#00f3ff" : "#2563eb"} 
-            />
-            <CyberObject isEntering={isEntering} theme={theme} />
-          </Canvas>
-        </div>
+        {/* Laser line & Starfield background supplied by persistent global Background */}
 
         {/* HUD SIDE WIDGET: Left metrics */}
         {bootComplete && (

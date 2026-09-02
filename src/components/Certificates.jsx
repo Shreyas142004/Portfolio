@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Eye, Download, X, ShieldCheck, Cpu } from 'lucide-react';
+import { Award, Eye, Download, X, ShieldCheck, Cpu, ExternalLink } from 'lucide-react';
 import { useTheme } from './ThemeContext';
 
 const certificatesData = [
   {
     id: 1,
-    certId: "CRT-GAI-01",
-    title: 'Introduction to Generative AI Studio',
-    issuer: 'Google Cloud',
+    certId: "CRT-DLT-01",
+    title: 'Deloitte Technology Certification',
+    issuer: 'Deloitte',
     date: '2026',
-    file: './Generative AI Studio.pdf',
-    description: 'Mission accomplished: Explored the cutting-edge of artificial intelligence, mastering industry-aligned Generative AI models. Unlocked new capabilities in prompt engineering, model tuning, and integrating AI architectures.',
+    file: './Deloitte.pdf',
+    description: 'Completed Deloitte Technology consulting virtual experience, analyzing technology strategy, cloud architecture, and system integration solutions.',
   },
   {
     id: 2,
@@ -134,6 +134,17 @@ const Certificates = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
+  useEffect(() => {
+    if (previewCert) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [previewCert]);
+
   return (
     <section id="certificates" className="py-24 relative overflow-hidden bg-transparent">
       <div className="absolute inset-0 pointer-events-none opacity-[0.02] z-[-1] cyber-grid-bg" />
@@ -178,7 +189,7 @@ const Certificates = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={`fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-md ${isDark ? 'bg-black/75' : 'bg-gray-900/50'}`}
+            className={`fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 backdrop-blur-md ${isDark ? 'bg-black/80' : 'bg-gray-900/60'}`}
             onClick={() => setPreviewCert(null)}
           >
             <motion.div
@@ -186,34 +197,57 @@ const Certificates = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.93, y: 40 }}
               onClick={(e) => e.stopPropagation()}
-              className={`w-full max-w-4xl h-[85vh] rounded-xl overflow-hidden relative border flex flex-col ${
-                isDark ? 'bg-black border-neon-cyan/40 box-glow shadow-[0_0_35px_rgba(0,255,255,0.1)]' : 'bg-white border-gray-200 shadow-2xl'
+              className={`w-full max-w-4xl h-[88vh] sm:h-[85vh] rounded-xl overflow-hidden relative border flex flex-col ${
+                isDark ? 'bg-[#08080f] border-neon-cyan/40 box-glow shadow-[0_0_35px_rgba(0,255,255,0.1)]' : 'bg-white border-gray-200 shadow-2xl'
               }`}
             >
-              {/* Close trigger */}
-              <button 
-                onClick={() => setPreviewCert(null)}
-                className={`absolute top-4 right-4 z-50 p-2 rounded backdrop-blur-sm transition-colors ${
-                  isDark ? 'bg-black/60 text-white hover:text-neon-cyan border border-white/10' : 'bg-white/80 text-gray-800 border border-gray-200'
-                }`}
-              >
-                <X className="w-4 h-4" />
-              </button>
-
               {/* Header inside modal */}
-              <div className={`p-4 border-b flex items-center gap-2.5 font-mono text-[11px] tracking-widest ${
-                isDark ? "bg-[#08080f]/90 border-white/10 text-neon-cyan" : "bg-gray-50 border-gray-200 text-blue-600"
+              <div className={`p-3 sm:p-4 border-b flex items-center justify-between font-mono text-[11px] sm:text-xs tracking-widest ${
+                isDark ? "bg-[#0c0c16] border-white/10 text-neon-cyan" : "bg-gray-50 border-gray-200 text-blue-600"
               }`}>
-                <ShieldCheck className="w-4 h-4" /> 
-                <span>SYSTEM.VIEWPORT // SECURE_DECRYPT: {previewCert.certId}</span>
+                <div className="flex items-center gap-2 truncate pr-2">
+                  <ShieldCheck className="w-4 h-4 flex-shrink-0" /> 
+                  <span className="truncate">SYSTEM.VIEWPORT // {previewCert.certId}</span>
+                </div>
+
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <a 
+                    href={previewCert.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold border transition-colors ${
+                      isDark 
+                        ? 'bg-neon-cyan/10 border-neon-cyan/40 text-neon-cyan hover:bg-neon-cyan hover:text-black' 
+                        : 'bg-blue-50 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white'
+                    }`}
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    <span>FULL TAB</span>
+                  </a>
+                  <button 
+                    onClick={() => setPreviewCert(null)}
+                    className={`p-1.5 rounded border transition-colors ${
+                      isDark ? 'bg-white/10 border-white/10 text-white hover:text-neon-cyan' : 'bg-gray-100 border-gray-300 text-gray-800'
+                    }`}
+                    aria-label="Close modal"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
               
-              <div className="w-full h-full p-2 bg-black">
-                <iframe 
-                  src={`${previewCert.file}#toolbar=0`} 
+              <div className="w-full h-full p-2 bg-black/90 relative overflow-hidden">
+                <object 
+                  data={`${previewCert.file}#toolbar=0`} 
+                  type="application/pdf"
                   className="w-full h-full rounded border-none"
-                  title="Certificate Preview"
-                />
+                >
+                  <iframe 
+                    src={`${previewCert.file}#toolbar=0`} 
+                    className="w-full h-full rounded border-none"
+                    title="Certificate Preview"
+                  />
+                </object>
               </div>
             </motion.div>
           </motion.div>
