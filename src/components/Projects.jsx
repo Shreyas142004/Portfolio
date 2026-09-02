@@ -363,8 +363,8 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={`fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-md ${
-              isDark ? "bg-black/70" : "bg-gray-900/40"
+            className={`fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4 pt-16 sm:pt-4 backdrop-blur-md ${
+              isDark ? "bg-black/85" : "bg-gray-900/60"
             }`}
             onClick={() => setSelectedProject(null)}
           >

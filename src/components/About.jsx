@@ -9,13 +9,19 @@ const About = () => {
   const [showResumeModal, setShowResumeModal] = useState(false);
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setShowResumeModal(false);
+    };
+
     if (showResumeModal) {
       document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = '';
     }
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [showResumeModal]);
 
@@ -204,7 +210,7 @@ const About = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={`fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 backdrop-blur-md ${isDark ? 'bg-black/80' : 'bg-gray-900/60'}`}
+            className="fixed inset-0 z-[99999] flex flex-col items-center justify-center p-3 sm:p-6 pt-16 sm:pt-6 backdrop-blur-md bg-black/85 select-none overflow-y-auto"
             onClick={() => setShowResumeModal(false)}
           >
             <motion.div
@@ -212,12 +218,12 @@ const About = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.93, y: 40 }}
               onClick={(e) => e.stopPropagation()}
-              className={`w-full max-w-4xl h-[88vh] sm:h-[85vh] rounded-xl overflow-hidden relative border flex flex-col ${
-                isDark ? 'bg-[#08080f] border-neon-cyan/40 box-glow shadow-[0_0_35px_rgba(0,255,255,0.1)]' : 'bg-white border-gray-200 shadow-2xl'
+              className={`w-full max-w-4xl h-[82vh] sm:h-[85vh] max-h-[820px] rounded-xl overflow-hidden relative border flex flex-col my-auto ${
+                isDark ? 'bg-[#08080f] border-neon-cyan/40 box-glow shadow-[0_0_35px_rgba(0,255,255,0.15)]' : 'bg-white border-gray-200 shadow-2xl'
               }`}
             >
               {/* Header inside modal */}
-              <div className={`p-3 sm:p-4 border-b flex items-center justify-between font-mono text-[11px] sm:text-xs tracking-widest ${
+              <div className={`p-3 sm:p-4 border-b flex items-center justify-between font-mono text-xs tracking-widest ${
                 isDark ? "bg-[#0c0c16] border-white/10 text-neon-cyan" : "bg-gray-50 border-gray-200 text-blue-600"
               }`}>
                 <div className="flex items-center gap-2 truncate pr-2">
@@ -230,28 +236,46 @@ const About = () => {
                     href="./Shreyas.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold border transition-colors ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded font-mono text-xs font-bold border transition-all ${
                       isDark 
                         ? 'bg-neon-cyan/10 border-neon-cyan/40 text-neon-cyan hover:bg-neon-cyan hover:text-black' 
                         : 'bg-blue-50 border-blue-300 text-blue-600 hover:bg-blue-600 hover:text-white'
                     }`}
                   >
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3.5 h-3.5" />
                     <span>FULL TAB</span>
                   </a>
                   <button 
                     onClick={() => setShowResumeModal(false)}
-                    className={`p-1.5 rounded border transition-colors ${
-                      isDark ? 'bg-white/10 border-white/10 text-white hover:text-neon-cyan' : 'bg-gray-100 border-gray-300 text-gray-800'
-                    }`}
+                    className="p-1.5 px-2.5 rounded font-mono text-xs font-bold border bg-red-500/20 border-red-500/40 text-red-400 hover:bg-red-500 hover:text-white transition-all"
                     aria-label="Close modal"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-4 h-4 inline mr-1" />
+                    <span>CLOSE</span>
                   </button>
                 </div>
               </div>
+
+              {/* Mobile Action Controls Banner */}
+              <div className="sm:hidden flex items-center justify-around gap-2 p-2 bg-[#0c0c16] border-b border-white/10">
+                <a
+                  href="./Shreyas.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 inline-flex justify-center items-center gap-1.5 py-2 px-3 rounded bg-neon-cyan/15 border border-neon-cyan/40 text-neon-cyan font-mono text-xs font-bold"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" /> OPEN FULL TAB
+                </a>
+                <a
+                  href="./Shreyas.pdf"
+                  download="Shreyas_Resume.pdf"
+                  className="flex-1 inline-flex justify-center items-center gap-1.5 py-2 px-3 rounded bg-neon-purple/15 border border-neon-purple/40 text-neon-purple font-mono text-xs font-bold"
+                >
+                  <Download className="w-3.5 h-3.5" /> DOWNLOAD
+                </a>
+              </div>
               
-              <div className="w-full h-full p-2 bg-black/90 relative overflow-hidden">
+              <div className="w-full h-full p-2 bg-black/90 relative overflow-hidden flex-grow">
                 <object 
                   data="./Shreyas.pdf#toolbar=0" 
                   type="application/pdf"
@@ -263,6 +287,16 @@ const About = () => {
                     title="Resume Preview"
                   />
                 </object>
+              </div>
+
+              {/* Bottom Touch Close Button for Mobile */}
+              <div className="sm:hidden p-2.5 border-t border-white/10 bg-[#08080f] flex justify-center">
+                <button
+                  onClick={() => setShowResumeModal(false)}
+                  className="w-full py-2.5 bg-red-600/30 border border-red-500/60 text-red-300 font-orbitron font-bold text-xs rounded tracking-widest flex items-center justify-center gap-2"
+                >
+                  <X className="w-4 h-4" /> CLOSE PREVIEW
+                </button>
               </div>
             </motion.div>
           </motion.div>
